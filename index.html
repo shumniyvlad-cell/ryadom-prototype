@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0F12">
+<title>РЯДОМ — прототип</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0C0F; --graphite:#15171C; --card:#181B21; --card2:#1E222A; --line:#2A2E37;
+  --txt:#F4F4F5; --mut:#9AA0A8; --dim:#6A7078;
+  --amber:#E8833A; --amber2:#C25A2E; --amber-soft:rgba(232,131,58,.14);
+  --green:#46C28E; --r:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:Inter,-apple-system,'SF Pro Text',Roboto,sans-serif;background:
+  radial-gradient(120% 80% at 50% -10%, #1a1410 0%, #0B0C0F 46%) , #0B0C0F;
+  color:var(--txt);display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:22px;
+  background-attachment:fixed;
+}
+/* phone frame */
+.phone{
+  position:relative;width:392px;height:min(820px,calc(100dvh - 44px));
+  background:var(--bg);border-radius:42px;border:1px solid #23262d;
+  box-shadow:0 40px 120px rgba(0,0,0,.6), inset 0 0 0 6px #0a0b0d, inset 0 0 0 7px #1b1e24;
+  overflow:hidden;
+}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#000;border-radius:0 0 16px 16px;z-index:60;}
+.statusbar{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:13px;font-weight:600;color:var(--txt);z-index:50;pointer-events:none;}
+.statusbar .r{display:flex;gap:6px;align-items:center;opacity:.9;}
+/* screens */
+.screen{position:absolute;inset:0;padding:54px 20px 92px;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;animation:fade .32s ease;}
+.screen::-webkit-scrollbar{width:0;}
+.screen.active{display:flex;}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.screen.full{padding-bottom:24px;}
+/* type */
+h1{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.08;}
+h2{font-size:21px;font-weight:800;letter-spacing:-.3px;}
+.kick{font-size:11.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);}
+.mut{color:var(--mut);} .dim{color:var(--dim);} .amber{color:var(--amber);}
+.small{font-size:13px;line-height:1.5;}
+/* buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:none;border-radius:16px;
+  padding:16px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:transform .08s, filter .2s;}
+.btn:active{transform:scale(.97);}
+.btn-amber{background:linear-gradient(180deg,var(--amber),var(--amber2));color:#160d06;box-shadow:0 8px 24px rgba(232,131,58,.28);}
+.btn-ghost{background:var(--card2);color:var(--txt);border:1px solid var(--line);}
+.btn-sm{padding:11px 16px;font-size:14px;width:auto;border-radius:13px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;}
+.spacer{flex:1;}
+.row{display:flex;gap:12px;align-items:center;}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--amber-soft);color:var(--amber);font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;}
+.av{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#160d06;background:linear-gradient(135deg,var(--amber),var(--amber2));}
+.av.sm{width:34px;height:34px;font-size:13px;}
+/* hero illustration */
+.hero{position:relative;height:300px;border-radius:24px;overflow:hidden;margin-bottom:6px;
+  background:linear-gradient(180deg,#241a12 0%,#13100d 100%);border:1px solid var(--line);}
+.hero svg{position:absolute;inset:0;width:100%;height:100%;}
+.hero .grain{position:absolute;inset:0;opacity:.5;background:
+  radial-gradient(70% 50% at 70% 18%, rgba(232,131,58,.55), transparent 60%);}
+/* bottom nav */
+.nav{position:absolute;left:0;right:0;bottom:0;height:78px;display:none;background:rgba(11,12,15,.88);
+  backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:10px 8px 22px;z-index:40;}
+.nav.show{display:flex;}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--dim);font-size:10px;font-weight:600;cursor:pointer;}
+.nav a.on{color:var(--amber);}
+.nav svg{width:23px;height:23px;}
+/* progress ring */
+.ring{transform:rotate(-90deg);} .ring circle{fill:none;stroke-width:9;stroke-linecap:round;}
+/* sliders */
+input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:8px;background:var(--card2);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 5px var(--amber-soft);cursor:pointer;}
+.tasks .t{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+.tasks .t:last-child{border-bottom:none;}
+.box{width:24px;height:24px;border-radius:8px;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.t.done .box{background:var(--amber);border-color:var(--amber);}
+.t.done .lbl{color:var(--mut);text-decoration:line-through;}
+.box svg{width:14px;height:14px;opacity:0;transition:.2s;} .t.done .box svg{opacity:1;}
+/* toast */
+.toast{position:absolute;left:14px;right:14px;bottom:96px;background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:13px 15px;display:flex;gap:11px;align-items:center;z-index:55;opacity:0;visibility:hidden;transform:translateY(30px);transition:transform .4s cubic-bezier(.2,.9,.3,1),opacity .3s;box-shadow:0 14px 40px rgba(0,0,0,.5);}
+.toast.show{transform:none;opacity:1;visibility:visible;}
+.bubble{background:var(--card2);border:1px solid var(--line);border-radius:16px 16px 16px 5px;padding:12px 14px;font-size:14px;line-height:1.45;max-width:80%;}
+.bubble.me{background:linear-gradient(180deg,var(--amber),var(--amber2));color:#160d06;border-radius:16px 16px 5px 16px;align-self:flex-end;font-weight:600;}
+.seg{display:flex;background:var(--card2);border-radius:13px;padding:4px;gap:4px;}
+.seg button{flex:1;border:none;background:none;color:var(--mut);font-family:inherit;font-weight:700;font-size:13px;padding:9px;border-radius:10px;cursor:pointer;}
+.seg button.on{background:var(--amber);color:#160d06;}
+.feed .f{display:flex;gap:11px;padding:14px 0;border-bottom:1px solid var(--line);}
+.lvlbar{height:9px;border-radius:9px;background:var(--card2);overflow:hidden;}
+.lvlbar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:9px;}
+.note{font-size:11.5px;color:var(--dim);text-align:center;margin-top:10px;}
+.demoTag{position:fixed;top:10px;left:12px;font-size:11px;color:var(--dim);z-index:99;}
+@media(max-width:460px){
+  body{padding:0;} .phone{width:100vw;height:100dvh;border-radius:0;border:none;box-shadow:none;}
+  .demoTag{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="demoTag">РЯДОМ · кликабельный прототип (демо)</div>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="statusbar"><span>9:41</span><span class="r">● ▮▮▮ <b>76</b></span></div>
+
+  <!-- 1. SPLASH -->
+  <section class="screen full active" data-s="splash" style="justify-content:flex-end;padding-bottom:26px;">
+    <div class="hero" style="position:absolute;inset:0;height:auto;border:none;border-radius:0;">
+      <svg viewBox="0 0 392 820" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="sun" cx="68%" cy="30%" r="40%">
+            <stop offset="0%" stop-color="#ffb86b"/><stop offset="40%" stop-color="#E8833A"/><stop offset="100%" stop-color="#0B0C0F" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2a1d12"/><stop offset="55%" stop-color="#120f0c"/><stop offset="100%" stop-color="#0B0C0F"/>
+          </linearGradient>
+        </defs>
+        <rect width="392" height="820" fill="url(#sky)"/>
+        <circle cx="266" cy="250" r="230" fill="url(#sun)"/>
+        <path d="M0 560 L70 470 L150 540 L230 430 L300 520 L392 450 L392 820 L0 820Z" fill="#0d0e11" opacity=".92"/>
+        <path d="M0 640 L90 560 L180 620 L270 540 L392 600 L392 820 L0 820Z" fill="#070809"/>
+      </svg>
+    </div>
+    <div style="position:relative;z-index:2;">
+      <div class="kick">дисциплина без насилия</div>
+      <h1 style="font-size:40px;margin:12px 0 6px;">РЯ́ДОМ</h1>
+      <p class="mut" style="font-size:17px;line-height:1.45;max-width:300px;">Доходишь до цели не на силе воли, а с наставником и средой, которые держат. Срываются все — вопрос, возвращаешься ли ты.</p>
+      <button class="btn btn-amber" style="margin-top:22px;" onclick="go('pain')">Начать путь</button>
+      <p class="note" onclick="go('today')" style="cursor:pointer;">Уже с нами? <span class="amber">Войти</span></p>
+    </div>
+  </section>
+
+  <!-- 2. ВЫБОР БОЛИ -->
+  <section class="screen full" data-s="pain">
+    <div class="kick">шаг 1 из 3</div>
+    <h1 style="margin:10px 0 6px;">Что хочешь<br>изменить?</h1>
+    <p class="mut small">Выбери, где сейчас буксуешь. Это твоя точка А — то, какой ты сегодня, а не твоё прошлое.</p>
+    <div style="margin-top:18px;display:flex;flex-direction:column;gap:11px;">
+      <div class="card pick row" onclick="pick(this,'sport')"><div class="av sm">🏃</div><div><b>Тело и спорт</b><div class="small mut">режим, тренировки, форма</div></div></div>
+      <div class="card pick row" onclick="pick(this,'morning')"><div class="av sm">☀️</div><div><b>Утро и режим</b><div class="small mut">подъём, распорядок дня</div></div></div>
+      <div class="card pick row" onclick="pick(this,'focus')"><div class="av sm">🎯</div><div><b>Работа и фокус</b><div class="small mut">довожу дела до конца</div></div></div>
+      <div class="card pick row" onclick="pick(this,'self')"><div class="av sm">🧭</div><div><b>Своя цель</b><div class="small mut">опишу сам наставнику</div></div></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-amber" onclick="go('minimum')">Дальше</button>
+  </section>
+
+  <!-- 3. ВЫБОР МИНИМУМА -->
+  <section class="screen full" data-s="minimum">
+    <div class="kick">шаг 2 из 3 · метод минимум→максимум</div>
+    <h1 style="margin:10px 0 6px;">Возьми минимум,<br>который не слить</h1>
+    <p class="mut small">Не геройствуй на старте. Начинаем с действия, которое ты сделаешь даже в худший день. Дальше нарастим.</p>
+    <div style="margin-top:18px;display:flex;flex-direction:column;gap:11px;">
+      <div class="card pick row" onclick="pick(this)"><div class="box" style="border-radius:50%"></div><b>Выбежать на 10 минут</b></div>
+      <div class="card pick row" onclick="pick(this)"><div class="box" style="border-radius:50%"></div><b>20 отжиманий</b></div>
+      <div class="card pick row" onclick="pick(this)"><div class="box" style="border-radius:50%"></div><b>Зарядка 10 минут</b></div>
+      <div class="card pick row" onclick="pick(this)"><div class="box" style="border-radius:50%"></div><b>Стакан воды и подъём в одно время</b></div>
+    </div>
+    <div class="card" style="margin-top:14px;background:var(--amber-soft);border-color:transparent;">
+      <div class="small"><b class="amber">Почему минимум?</b> <span class="mut">Привычка ≠ дисциплина. Сначала ставим планку, которую невозможно провалить, — и она держит тебя, когда нет сил.</span></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-amber" onclick="go('mentor')">Дальше</button>
+  </section>
+
+  <!-- 4. НАСТАВНИК -->
+  <section class="screen full" data-s="mentor">
+    <div class="kick">шаг 3 из 3</div>
+    <h1 style="margin:10px 0 6px;">Ты не пойдёшь<br>один</h1>
+    <p class="mut small">Бежишь один — сольёшься. Поэтому рядом наставник, который видит твои чек-ины и возвращает тебя после срыва.</p>
+    <div class="card" style="margin-top:18px;">
+      <div class="row"><div class="av" style="width:54px;height:54px;font-size:20px;">А</div>
+        <div><b style="font-size:17px;">Александр</b> <span class="chip">наставник</span><div class="small mut" style="margin-top:3px;">25 лет дисциплины. Падал в ноль и возвращался.</div></div></div>
+      <p class="small mut" style="margin-top:14px;border-top:1px solid var(--line);padding-top:13px;">«Я сам был самым недисциплинированным. Нашёл, как держаться без насилия над собой, — и проведу тебя тем же путём. Погнали вместе.»</p>
+    </div>
+    <div class="row" style="gap:10px;margin-top:14px;">
+      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;" class="amber">7 дней</b><div class="small mut">бесплатно</div></div>
+      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;">1‑на‑1</b><div class="small mut">с наставником</div></div>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-amber" onclick="go('today')">Идти вместе →</button>
+    <p class="note">Первая неделя — бесплатно, без карты.</p>
+  </section>
+
+  <!-- 5. СЕГОДНЯ -->
+  <section class="screen" data-s="today">
+    <div class="row" style="justify-content:space-between;">
+      <div><div class="dim small">Среда, 25 июня</div><h2>Сегодня</h2></div>
+      <div class="av sm" onclick="go('profile')" style="cursor:pointer;">С</div>
+    </div>
+
+    <div class="card" style="margin-top:16px;display:flex;gap:16px;align-items:center;">
+      <svg width="76" height="76" class="ring" viewBox="0 0 76 76">
+        <circle cx="38" cy="38" r="32" stroke="#2A2E37"/>
+        <circle id="dayRing" cx="38" cy="38" r="32" stroke="#E8833A" stroke-dasharray="201" stroke-dashoffset="201"/>
+      </svg>
+      <div style="flex:1;">
+        <div class="small mut">Твой минимум на сегодня</div>
+        <b style="font-size:18px;">Выбежать на 10 минут</b>
+        <div id="dayState" class="small dim" style="margin-top:3px;">ещё не сделано</div>
+      </div>
+    </div>
+    <button id="doneBtn" class="btn btn-amber" style="margin-top:12px;" onclick="doDone()">Я сделал ✓</button>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="row" style="justify-content:space-between;"><b>Чек‑ин дня</b><span class="small amber" onclick="go('checkin')" style="cursor:pointer;">открыть →</span></div>
+      <p class="small mut" style="margin-top:6px;">Отметь сон, энергию и настроение — наставник увидит и подскажет.</p>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <div class="row"><div class="av sm">А</div><div><b class="small">Александр</b> <span class="dim small">· наставник</span></div></div>
+      <p class="bubble" style="margin-top:10px;max-width:100%;">С утра тяжело — это нормально. Сделай минимум, остальное приложится. Я рядом 💪</p>
+      <button class="btn btn-ghost btn-sm" style="margin-top:10px;width:100%;" onclick="go('mentorchat')">Ответить наставнику</button>
+    </div>
+    <div class="note">Прототип: данные демонстрационные.</div>
+  </section>
+
+  <!-- 6. ЧЕК-ИН -->
+  <section class="screen" data-s="checkin">
+    <div class="kick">чек‑ин · 25 июня</div>
+    <h2 style="margin:8px 0 4px;">Как ты сегодня?</h2>
+    <p class="small mut">Честно — это видит только твой наставник.</p>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="row" style="justify-content:space-between;"><b class="small">Сон</b><span class="amber" id="v1">7</span></div>
+      <input type="range" min="1" max="10" value="7" oninput="document.getElementById('v1').textContent=this.value">
+      <div class="row" style="justify-content:space-between;margin-top:16px;"><b class="small">Энергия</b><span class="amber" id="v2">6</span></div>
+      <input type="range" min="1" max="10" value="6" oninput="document.getElementById('v2').textContent=this.value">
+      <div class="row" style="justify-content:space-between;margin-top:16px;"><b class="small">Настроение</b><span class="amber" id="v3">8</span></div>
+      <input type="range" min="1" max="10" value="8" oninput="document.getElementById('v3').textContent=this.value">
+    </div>
+
+    <div class="card tasks" style="margin-top:12px;">
+      <b class="small">Задачи дня</b>
+      <div class="t done" onclick="this.classList.toggle('done')"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Выбежать 10 минут</span></div>
+      <div class="t" onclick="this.classList.toggle('done')"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Вода + подъём 7:00</span></div>
+      <div class="t" onclick="this.classList.toggle('done')"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Не есть после 20:00</span></div>
+    </div>
+
+    <div class="card" style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:center;border-style:dashed;color:var(--mut);" onclick="toast('Фото‑пруф прикреплён ✓')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/></svg>
+      <span class="small">Прикрепить фото‑пруф</span>
+    </div>
+    <button class="btn btn-amber" style="margin-top:14px;" onclick="toast('Чек‑ин отправлен наставнику ✓');go('today')">Отправить наставнику</button>
+  </section>
+
+  <!-- 7. ПРОГРЕСС -->
+  <section class="screen" data-s="progress">
+    <h2>Твой путь</h2>
+    <div class="seg" style="margin-top:14px;">
+      <button class="on" onclick="seg(this,'pg-a')">Минимум→Максимум</button>
+      <button onclick="seg(this,'pg-b')">Срывы</button>
+    </div>
+
+    <div id="pg-a" style="margin-top:16px;">
+      <div class="card">
+        <div class="row" style="justify-content:space-between;"><b class="small">Бег · неделя 2</b><span class="chip">+растём</span></div>
+        <div style="display:flex;align-items:flex-end;gap:7px;height:120px;margin-top:16px;">
+          <div style="flex:1;background:var(--card2);border-radius:7px;height:30%;"></div>
+          <div style="flex:1;background:var(--card2);border-radius:7px;height:30%;"></div>
+          <div style="flex:1;background:var(--card2);border-radius:7px;height:45%;"></div>
+          <div style="flex:1;background:linear-gradient(180deg,var(--amber),var(--amber2));border-radius:7px;height:60%;"></div>
+          <div style="flex:1;background:linear-gradient(180deg,var(--amber),var(--amber2));border-radius:7px;height:78%;"></div>
+          <div style="flex:1;background:linear-gradient(180deg,var(--amber),var(--amber2));border-radius:7px;height:100%;"></div>
+        </div>
+        <div class="row" style="justify-content:space-between;margin-top:10px;"><span class="small dim">мин. 10 мин</span><span class="small amber">сейчас 25 мин</span></div>
+      </div>
+      <div class="card" style="margin-top:12px;">
+        <div class="small mut">«Не ставь капец‑цель. Минимум → 100% → максимум. Сначала дойти, потом добежать до вершины.»</div>
+      </div>
+    </div>
+
+    <div id="pg-b" style="margin-top:16px;display:none;">
+      <div class="card" style="text-align:center;background:var(--amber-soft);border-color:transparent;">
+        <div style="font-size:34px;">🤝</div>
+        <h2 style="margin-top:8px;">Сорвался? Это норма.</h2>
+        <p class="small mut" style="margin-top:8px;">Срываются почти все. Чемпион не тот, кто не падает, а кто возвращается. У тебя 2 срыва и 2 возврата — это и есть характер.</p>
+        <button class="btn btn-amber" style="margin-top:16px;" onclick="toast('С возвращением! Наставник уже пишет 💪');go('today')">Я вернулся</button>
+      </div>
+      <div class="row" style="gap:10px;margin-top:12px;">
+        <div class="card" style="flex:1;text-align:center;"><b style="font-size:24px;">11</b><div class="small mut">дней в деле</div></div>
+        <div class="card" style="flex:1;text-align:center;"><b style="font-size:24px;" class="amber">2/2</b><div class="small mut">возвраты</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. НАСТАВНИК ЧАТ -->
+  <section class="screen" data-s="mentorchat">
+    <div class="row" style="gap:11px;"><div class="av sm">А</div><div><b>Александр</b><div class="small" style="color:var(--green)">● на связи</div></div></div>
+    <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px;">
+      <div class="bubble">Привет. Видел твой чек‑ин — сон 7, энергия проседает. Как сам ощущаешь?</div>
+      <div class="bubble me">Да, вечером тяжело. Боюсь опять слиться к выходным</div>
+      <div class="bubble">Понял. Давай уменьшим планку до выходных: только минимум — 10 минут. Не геройствуй. Вернёмся к 25 на след. неделе.</div>
+      <div class="bubble">И давай созвон в пятницу 5 минут — сверимся 👊</div>
+    </div>
+    <div class="card" style="margin-top:14px;background:var(--card2);">
+      <div class="row" style="justify-content:space-between;"><b class="small">План на неделю от наставника</b></div>
+      <div class="tasks" style="margin-top:4px;">
+        <div class="t"><div class="box"></div><span class="lbl small">Пн–Пт: минимум 10 мин</span></div>
+        <div class="t"><div class="box"></div><span class="lbl small">Сб: пробег до парка</span></div>
+        <div class="t"><div class="box"></div><span class="lbl small">Пт 18:00: созвон 5 мин</span></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row" style="gap:10px;">
+      <div class="card" style="flex:1;color:var(--mut);">Написать сообщение…</div>
+      <button class="btn btn-amber" style="width:54px;height:54px;border-radius:16px;flex:none;" onclick="toast('Отправлено ✓')">→</button>
+    </div>
+  </section>
+
+  <!-- 9. СРЕДА / КОМАНДА -->
+  <section class="screen" data-s="team">
+    <h2>Твоя среда</h2>
+    <p class="small mut">Один не пришёл — трое пришли, и ты всё равно побежишь. Команда тащит.</p>
+    <div class="card" style="margin-top:14px;background:var(--amber-soft);border-color:transparent;">
+      <div class="row" style="justify-content:space-between;"><b>Команда «Рассвет»</b><span class="chip">8 в деле</span></div>
+      <div class="small mut" style="margin-top:6px;">Сегодня выполнили минимум: 6 из 8</div>
+    </div>
+    <div class="feed" style="margin-top:8px;">
+      <div class="f"><div class="av sm">И</div><div><b class="small">Игорь</b> <span class="dim small">· 7:10</span><div class="small mut">Пробежал 3 км под дождём. Не хотел — побежал.</div><div class="chip" style="margin-top:6px;">🔥 12 поддержали</div></div></div>
+      <div class="f"><div class="av sm">М</div><div><b class="small">Марина</b> <span class="dim small">· 8:02</span><div class="small mut">Сорвалась вчера, сегодня вернулась. Зарядка ✓</div><div class="chip" style="margin-top:6px;">💪 9 поддержали</div></div></div>
+      <div class="f"><div class="av sm">Д</div><div><b class="small">Дмитрий</b> <span class="dim small">· 8:40</span><div class="small mut">11 дней подряд. Минимум держит.</div><div class="chip" style="margin-top:6px;">👏 15 поддержали</div></div></div>
+    </div>
+    <button class="btn btn-ghost" onclick="toast('Поддержка отправлена команде 🔥')">Поддержать команду</button>
+  </section>
+
+  <!-- 10. ПРОФИЛЬ -->
+  <section class="screen" data-s="profile">
+    <div class="row" style="gap:14px;"><div class="av" style="width:60px;height:60px;font-size:24px;">С</div>
+      <div><h2>Сергей</h2><div class="small mut">в РЯДОМ 11 дней · команда «Рассвет»</div></div></div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="row" style="justify-content:space-between;"><b>Уровень 3 · «В ритме»</b><span class="amber small">320 / 500</span></div>
+      <div class="lvlbar" style="margin-top:10px;"><i style="width:64%"></i></div>
+      <div class="small dim" style="margin-top:8px;">Опыт — за выполненные действия и возвраты после срыва. Не за «достигаторство», а за то, что продолжаешь.</div>
+    </div>
+
+    <div class="row" style="gap:10px;margin-top:12px;">
+      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;">11</b><div class="small mut">дней</div></div>
+      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;" class="amber">86%</b><div class="small mut">минимум</div></div>
+      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;">2</b><div class="small mut">возврата</div></div>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <b class="small">Дальше — экосистема</b>
+      <p class="small mut" style="margin-top:6px;">Освоил первые привычки → откроется доступ к профи‑наставникам под большие цели (бизнес, форма, проект).</p>
+      <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <span class="chip" style="background:var(--card2);color:var(--mut);">🔒 Профи‑наставники</span>
+        <span class="chip" style="background:var(--card2);color:var(--mut);">🔒 Оффлайн‑лагеря</span>
+      </div>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:14px;" onclick="go('splash')">↺ Пройти онбординг заново</button>
+  </section>
+
+  <!-- toast -->
+  <div class="toast" id="toast"><div class="av sm" id="toastAv">А</div><div class="small" id="toastMsg"></div></div>
+
+  <!-- bottom nav -->
+  <nav class="nav" id="nav">
+    <a data-t="today" onclick="go('today')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Сегодня</a>
+    <a data-t="progress" onclick="go('progress')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M9 19v-7M14 19V9M19 19v-5"/></svg>Путь</a>
+    <a data-t="mentorchat" onclick="go('mentorchat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 11-3.5-6.6L21 4l-1 4"/></svg>Наставник</a>
+    <a data-t="team" onclick="go('team')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 20c0-2 .5-3 2-3.5"/></svg>Среда</a>
+    <a data-t="profile" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Профиль</a>
+  </nav>
+</div>
+
+<script>
+var MAIN=['today','progress','mentorchat','team','profile'];
+function go(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('active',s.dataset.s===id);});
+  var nav=document.getElementById('nav'), isMain=MAIN.indexOf(id)>=0;
+  nav.classList.toggle('show',isMain);
+  document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('on',a.dataset.t===id);});
+  var sc=document.querySelector('.screen[data-s="'+id+'"]'); if(sc) sc.scrollTop=0;
+  if(history.replaceState) history.replaceState(null,'','#'+id);
+  window.scrollTo(0,0);
+}
+function pick(el,v){
+  var sibs=el.parentElement.querySelectorAll('.pick');
+  sibs.forEach(function(s){s.style.borderColor='var(--line)';s.style.background='var(--card)';var b=s.querySelector('.box');if(b){b.style.background='';b.style.borderColor='var(--line)';}});
+  el.style.borderColor='var(--amber)'; el.style.background='var(--amber-soft)';
+  var box=el.querySelector('.box'); if(box){box.style.background='var(--amber)';box.style.borderColor='var(--amber)';}
+}
+var dayDone=false;
+function doDone(){
+  if(dayDone) return; dayDone=true;
+  document.getElementById('dayRing').style.transition='stroke-dashoffset 1s ease';
+  document.getElementById('dayRing').style.strokeDashoffset='0';
+  document.getElementById('dayState').textContent='готово · +20 опыта';
+  document.getElementById('dayState').className='small amber';
+  var b=document.getElementById('doneBtn'); b.textContent='Сделано сегодня ✓'; b.style.filter='grayscale(.4) brightness(.8)';
+  toast('Красава! Наставник видит твой минимум 🔥');
+}
+var tT;
+function toast(msg,av){
+  document.getElementById('toastMsg').textContent=msg;
+  document.getElementById('toastAv').textContent=av||'А';
+  var t=document.getElementById('toast'); t.classList.add('show');
+  clearTimeout(tT); tT=setTimeout(function(){t.classList.remove('show');},2600);
+}
+function seg(btn,id){
+  btn.parentElement.querySelectorAll('button').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  document.getElementById('pg-a').style.display = id==='pg-a'?'block':'none';
+  document.getElementById('pg-b').style.display = id==='pg-b'?'block':'none';
+}
+// deep-link for QA / sharing
+(function(){var h=(location.hash||'').replace('#',''); if(h && document.querySelector('.screen[data-s="'+h+'"]')) go(h);})();
+</script>
+</body>
+</html>
