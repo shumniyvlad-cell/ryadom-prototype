@@ -3,226 +3,326 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0E0F12">
+<meta name="theme-color" content="#FBF7F1">
 <title>Мой путь — прототип</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0B0C0F;--graphite:#15171C;--card:#181B21;--card2:#1E222A;--line:#2A2E37;
-  --txt:#F4F4F5;--mut:#9AA0A8;--dim:#6A7078;
-  --amber:#E8833A;--amber2:#C25A2E;--amber-soft:rgba(232,131,58,.14);
-  --green:#46C28E;--gold:#F3C04A;--r:20px;
+  --bg:#FBF7F1;--surface:#FFFFFF;--surface2:#F5EEE3;--line:#ECE2D3;
+  --txt:#1B1813;--mut:#5B544A;--dim:#928A7C;
+  --accent:#F0792F;--accent-d:#C2410C;--soft:#FDE8D8;--green:#1AA06A;--green-soft:#E3F4EC;--gold:#E0A43B;
+  --r:20px;
+  --grad-btn:linear-gradient(135deg,#F0792F 0%,#F3A93C 100%);
+  --grad-splash:linear-gradient(180deg,#FFE9D6 0%,#FDF1E6 34%,#FBF7F1 66%,#FBF7F1 100%);
+  --sh-card:0 8px 24px rgba(120,90,60,.08);
+  --sh-up:0 16px 40px rgba(213,138,92,.16);
+  --sh-btn:0 10px 22px rgba(240,121,47,.30);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
-body{font-family:Inter,-apple-system,'SF Pro Text',Roboto,sans-serif;
-  background:radial-gradient(120% 80% at 50% -10%, #1a1410 0%, #0B0C0F 46%),#0B0C0F;
-  color:var(--txt);display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:22px;background-attachment:fixed;}
-.phone{position:relative;width:392px;height:min(820px,calc(100dvh - 44px));background:var(--bg);border-radius:42px;border:1px solid #23262d;
-  box-shadow:0 40px 120px rgba(0,0,0,.6), inset 0 0 0 6px #0a0b0d, inset 0 0 0 7px #1b1e24;overflow:hidden;}
-.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#000;border-radius:0 0 16px 16px;z-index:60;}
-.statusbar{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:13px;font-weight:600;z-index:50;pointer-events:none;}
-.statusbar .r{display:flex;gap:6px;align-items:center;opacity:.9;}
-.screen{position:absolute;inset:0;padding:54px 20px 92px;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;animation:fade .32s ease;}
+body{font-family:Manrope,-apple-system,'SF Pro Text',Roboto,sans-serif;
+  background:radial-gradient(120% 70% at 50% -8%, #FFE7D2 0%, #FBF7F1 52%),#FBF7F1;
+  color:var(--txt);display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:22px;background-attachment:fixed;
+  font-variant-numeric:tabular-nums;}
+.phone{position:relative;width:392px;height:min(824px,calc(100dvh - 44px));background:var(--bg);border-radius:42px;
+  border:1px solid #EFE6D8;box-shadow:0 40px 110px rgba(150,110,70,.30), inset 0 0 0 6px #fff, inset 0 0 0 7px #efe6d8;overflow:hidden;}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:118px;height:26px;background:#15110d;border-radius:0 0 16px 16px;z-index:60;}
+.statusbar{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 26px;font-size:13px;font-weight:700;z-index:50;pointer-events:none;color:var(--txt);}
+.statusbar .r{display:flex;gap:6px;align-items:center;}
+.screen{position:absolute;inset:0;padding:56px 18px 96px;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;animation:fade .34s ease;}
 .screen::-webkit-scrollbar{width:0;}
 .screen.active{display:flex;}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.screen.full{padding-bottom:24px;}
-h1{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.08;}
-h2{font-size:21px;font-weight:800;letter-spacing:-.3px;}
-.kick{font-size:11.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);}
-.mut{color:var(--mut);}.dim{color:var(--dim);}.amber{color:var(--amber);}.gold{color:var(--gold);}
-.small{font-size:13px;line-height:1.5;}
+.screen.full{padding-bottom:22px;}
+h1{font-family:Unbounded;font-size:27px;font-weight:700;letter-spacing:-.4px;line-height:1.12;}
+h2{font-family:Unbounded;font-size:20px;font-weight:600;letter-spacing:-.2px;}
+.num{font-family:Unbounded;font-weight:700;}
+.kick{font-size:12.5px;font-weight:700;color:var(--accent);letter-spacing:.2px;}
+.mut{color:var(--mut);}.dim{color:var(--dim);}.amber{color:var(--accent);}.grn{color:var(--green);}
+.small{font-size:13.5px;line-height:1.5;}
+.tiny{font-size:11.5px;line-height:1.4;}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:none;border-radius:16px;padding:16px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:transform .08s,filter .2s;}
-.btn:active{transform:scale(.97);}
-.btn-amber{background:linear-gradient(180deg,var(--amber),var(--amber2));color:#160d06;box-shadow:0 8px 24px rgba(232,131,58,.28);}
-.btn-ghost{background:var(--card2);color:var(--txt);border:1px solid var(--line);}
-.btn-sm{padding:11px 16px;font-size:14px;width:auto;border-radius:13px;}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;}
+.btn:active{transform:scale(.98);}
+.btn-amber{background:var(--grad-btn);color:#fff;box-shadow:var(--sh-btn);}
+.btn-ghost{background:var(--surface);color:var(--txt);border:1px solid var(--line);}
+.btn-sm{padding:11px 15px;font-size:14px;width:auto;border-radius:13px;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh-card);}
+.card2{background:var(--surface2);border:none;border-radius:var(--r);padding:18px;}
 .spacer{flex:1;}
 .row{display:flex;gap:12px;align-items:center;}
-.chip{display:inline-flex;align-items:center;gap:6px;background:var(--amber-soft);color:var(--amber);font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;}
-.chip.gold{background:rgba(243,192,74,.14);color:var(--gold);}
-.av{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#160d06;background:linear-gradient(135deg,var(--amber),var(--amber2));}
-.av.sm{width:34px;height:34px;font-size:13px;}
-.hero{position:absolute;inset:0;}
-input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:8px;background:var(--card2);outline:none;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 5px var(--amber-soft);cursor:pointer;}
-.tasks .t{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+.between{justify-content:space-between;}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--accent-d);font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;}
+.chip.grn{background:var(--green-soft);color:var(--green);}
+.chip.gold{background:#FBEFD6;color:#9A6A18;}
+.chip.neu{background:var(--surface2);color:var(--mut);}
+.ic{width:22px;height:22px;flex:none;}
+.icc{width:46px;height:46px;border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none;color:var(--accent);}
+.icc svg{width:24px;height:24px;}
+.av{width:44px;height:44px;border-radius:50%;flex:none;object-fit:cover;}
+.av.sm{width:34px;height:34px;}
+.avtxt{display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;background:var(--grad-btn);}
+/* splash */
+.brandrow{display:flex;align-items:center;gap:9px;}
+.logo{width:30px;height:30px;border-radius:9px;background:var(--grad-btn);display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-btn);}
+.logo svg{width:18px;height:18px;color:#fff;}
+.wordmark{font-family:Unbounded;font-weight:700;font-size:16px;}
+.heroimg{position:relative;border-radius:26px;overflow:hidden;box-shadow:var(--sh-up);}
+.heroimg img{width:100%;height:296px;object-fit:cover;display:block;}
+.vrow{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:9px;cursor:pointer;box-shadow:var(--sh-card);transition:transform .1s;}
+.vcard:active{transform:scale(.98);}
+.avstack{display:flex;}
+.avstack img{width:30px;height:30px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-9px;}
+.avstack img:first-child{margin-left:0;}
+.vcard b{font-size:15px;}
+/* picks */
+.pick{cursor:pointer;transition:.15s;}
+.pick:active{transform:scale(.99);}
+.cat{display:flex;align-items:center;gap:13px;}
+.tasks .t{display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer;}
 .tasks .t:last-child{border-bottom:none;}
 .box{width:24px;height:24px;border-radius:8px;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;transition:.2s;}
-.t.done .box,.pick.on .box{background:var(--amber);border-color:var(--amber);}
-.t.done .lbl{color:var(--mut);text-decoration:line-through;}
-.box svg{width:14px;height:14px;opacity:0;transition:.2s;}.t.done .box svg,.pick.on .box svg{opacity:1;}
+.t.done .box,.t.on .box{background:var(--green);border-color:var(--green);}
+.t.done .lbl{color:var(--dim);text-decoration:line-through;}
+.box svg{width:14px;height:14px;opacity:0;transition:.2s;color:#fff;}
+.t.done .box svg,.t.on .box svg{opacity:1;}
+/* choice sam/mentor */
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ch{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px 13px 16px;min-height:184px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;cursor:pointer;position:relative;box-shadow:var(--sh-card);transition:transform .12s;}
+.ch:active{transform:scale(.98);}
+.ch.rec{border:2px solid var(--accent);background:linear-gradient(165deg,#fff,#FFF4EA);box-shadow:var(--sh-up);}
+.ch b{font-family:Unbounded;font-size:17px;font-weight:600;}
+.ch .d{font-size:12.5px;color:var(--mut);line-height:1.4;}
+.chph{width:66px;height:66px;border-radius:50%;object-fit:cover;}
+.chic{width:66px;height:66px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--accent);}
+.chic svg{width:32px;height:32px;}
+.recbadge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--grad-btn);color:#fff;font-size:10.5px;font-weight:800;padding:4px 11px;border-radius:999px;box-shadow:var(--sh-btn);white-space:nowrap;}
+/* ring */
 .ring{transform:rotate(-90deg);}.ring circle{fill:none;stroke-width:9;stroke-linecap:round;}
-.toast{position:absolute;left:14px;right:14px;bottom:96px;background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:13px 15px;display:flex;gap:11px;align-items:center;z-index:55;opacity:0;visibility:hidden;transform:translateY(30px);transition:transform .4s cubic-bezier(.2,.9,.3,1),opacity .3s;box-shadow:0 14px 40px rgba(0,0,0,.5);}
-.toast.show{transform:none;opacity:1;visibility:visible;}
-.bubble{background:var(--card2);border:1px solid var(--line);border-radius:16px 16px 16px 5px;padding:12px 14px;font-size:14px;line-height:1.45;max-width:80%;}
-.bubble.me{background:linear-gradient(180deg,var(--amber),var(--amber2));color:#160d06;border-radius:16px 16px 5px 16px;align-self:flex-end;font-weight:600;}
-.seg{display:flex;background:var(--card2);border-radius:13px;padding:4px;gap:3px;}
-.seg button{flex:1;border:none;background:none;color:var(--mut);font-family:inherit;font-weight:700;font-size:12.5px;padding:9px 4px;border-radius:10px;cursor:pointer;}
-.seg button.on{background:var(--amber);color:#160d06;}
-.feed .f{display:flex;gap:11px;padding:14px 0;border-bottom:1px solid var(--line);}
-.lvlbar{height:9px;border-radius:9px;background:var(--card2);overflow:hidden;}
-.lvlbar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:9px;}
-.pick{cursor:pointer;transition:.15s;}
-.medals{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.med{aspect-ratio:1;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--card2);border:1px solid var(--line);font-size:24px;}
-.med span{font-size:8.5px;color:var(--mut);font-weight:600;text-align:center;line-height:1.1;padding:0 3px;}
-.med.on{background:linear-gradient(180deg,rgba(243,192,74,.22),rgba(232,131,58,.10));border-color:rgba(243,192,74,.5);}
-.med.on span{color:var(--gold);}
-.med.lock{filter:grayscale(1);opacity:.4;}
+/* sliders */
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:8px;background:var(--surface2);outline:none;margin-top:6px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:none;box-shadow:0 2px 8px rgba(120,90,60,.3),0 0 0 4px var(--accent);cursor:pointer;}
+/* quote / mentor */
+.bubble{background:var(--surface2);border-radius:16px 16px 16px 5px;padding:12px 14px;font-size:14px;line-height:1.45;max-width:82%;}
+.bubble.me{background:var(--grad-btn);color:#fff;border-radius:16px 16px 5px 16px;align-self:flex-end;font-weight:600;}
+.quote{background:linear-gradient(160deg,#FFF6EC,#FFFBF6);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh-card);}
+.seg{display:flex;background:var(--surface2);border-radius:13px;padding:4px;gap:3px;}
+.seg button{flex:1;border:none;background:none;color:var(--mut);font-family:inherit;font-weight:700;font-size:13px;padding:9px 4px;border-radius:10px;cursor:pointer;}
+.seg button.on{background:#fff;color:var(--accent);box-shadow:0 2px 8px rgba(120,90,60,.12);}
+.feed .f{display:flex;gap:11px;padding:15px 0;border-bottom:1px solid var(--line);}
+.feed .f:last-child{border-bottom:none;}
+.lvlbar{height:9px;border-radius:9px;background:var(--surface2);overflow:hidden;}
+.lvlbar i{display:block;height:100%;background:var(--grad-btn);border-radius:9px;}
+/* rewards — airy */
+.medals{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.med{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;box-shadow:var(--sh-card);cursor:pointer;position:relative;}
+.medic{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;}
+.medic svg{width:27px;height:27px;}
+.med.amber .medic{background:var(--grad-btn);}
+.med.grn .medic{background:linear-gradient(135deg,#1AA06A,#37C18A);}
+.med.lock{opacity:.55;}
+.med.lock .medic{background:var(--surface2);color:var(--dim);}
+.med b{font-family:Unbounded;font-size:13px;font-weight:600;line-height:1.15;}
+.med .st{font-size:11px;color:var(--dim);}
+.med .sh{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--accent);}
+.med .sh svg{width:14px;height:14px;}
+.sharecard{border-radius:20px;padding:20px;background:linear-gradient(140deg,#F0792F,#F3A93C);color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh-up);}
+.sharecard:after{content:"";position:absolute;right:-34px;top:-34px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.16);}
+.sharecard .z{position:relative;z-index:2;}
+.duel{display:flex;justify-content:space-around;align-items:center;text-align:center;}
 .note{font-size:11.5px;color:var(--dim);text-align:center;margin-top:10px;}
-.sharecard{border-radius:18px;padding:18px;background:linear-gradient(135deg,#241a12,#0e1013);border:1px solid rgba(243,192,74,.35);position:relative;overflow:hidden;}
-.sharecard:after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(232,131,58,.45),transparent 70%);}
-.nav{position:absolute;left:0;right:0;bottom:0;height:78px;display:none;background:rgba(11,12,15,.88);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:10px 6px 22px;z-index:40;}
+/* hero gallery */
+.hcard{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh-card);}
+.hcard img{width:100%;height:172px;object-fit:cover;object-position:center 28%;display:block;}
+.hbody{padding:16px;}
+.ba{display:flex;gap:9px;margin-top:11px;}
+.ba .dot{flex:none;width:8px;height:8px;border-radius:50%;margin-top:6px;}
+.ba.w .dot{background:var(--dim);}.ba.s .dot{background:var(--green);}
+.hquote{background:var(--surface2);border-radius:14px;padding:12px 13px;font-size:13px;line-height:1.5;color:var(--mut);margin-top:13px;font-style:normal;}
+/* mentor gallery */
+.mcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:15px;display:flex;gap:14px;box-shadow:var(--sh-card);}
+.mcard img{width:86px;height:104px;border-radius:14px;object-fit:cover;flex:none;}
+.backbar{display:flex;align-items:center;gap:6px;color:var(--mut);font-weight:700;font-size:14px;cursor:pointer;margin-bottom:6px;}
+.backbar svg{width:20px;height:20px;}
+/* toast */
+.toast{position:absolute;left:14px;right:14px;bottom:104px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:13px 15px;display:flex;gap:11px;align-items:center;z-index:55;opacity:0;visibility:hidden;transform:translateY(30px);transition:transform .4s cubic-bezier(.2,.9,.3,1),opacity .3s;box-shadow:0 16px 44px rgba(120,90,60,.22);}
+.toast.show{transform:none;opacity:1;visibility:visible;}
+.toast .ti{width:34px;height:34px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--accent);flex:none;}
+.toast .ti svg{width:18px;height:18px;}
+/* nav */
+.nav{position:absolute;left:0;right:0;bottom:0;height:80px;display:none;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:11px 6px 24px;z-index:40;}
 .nav.show{display:flex;}
-.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--dim);font-size:9.5px;font-weight:600;cursor:pointer;}
-.nav a.on{color:var(--amber);}
-.nav svg{width:22px;height:22px;}
-.demoTag{position:fixed;top:10px;left:12px;font-size:11px;color:var(--dim);z-index:99;}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--dim);font-size:9.5px;font-weight:700;cursor:pointer;}
+.nav a.on{color:var(--accent);}
+.nav svg{width:23px;height:23px;}
+.demoTag{position:fixed;top:12px;left:14px;font-size:11px;color:#b39a82;z-index:99;}
 @media(max-width:460px){body{padding:0;}.phone{width:100vw;height:100dvh;border-radius:0;border:none;box-shadow:none;}.demoTag{display:none;}}
 </style>
 </head>
 <body>
-<div class="demoTag">Мой путь · кликабельный прототип (демо)</div>
+<div class="demoTag">Мой путь · кликабельный прототип</div>
 <div class="phone">
   <div class="notch"></div>
-  <div class="statusbar"><span>9:41</span><span class="r">● ▮▮▮ <b>76</b></span></div>
+  <div class="statusbar"><span>9:41</span><span class="r">●&nbsp;&nbsp;▮▮▮&nbsp;&nbsp;<b>76</b></span></div>
 
   <!-- 1. SPLASH -->
-  <section class="screen full active" data-s="splash" style="justify-content:flex-end;padding-bottom:26px;">
-    <div class="hero">
-      <svg viewBox="0 0 392 820" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;">
-        <defs>
-          <radialGradient id="sun" cx="68%" cy="30%" r="42%"><stop offset="0%" stop-color="#ffc27a"/><stop offset="42%" stop-color="#E8833A"/><stop offset="100%" stop-color="#0B0C0F" stop-opacity="0"/></radialGradient>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a1d12"/><stop offset="55%" stop-color="#120f0c"/><stop offset="100%" stop-color="#0B0C0F"/></linearGradient>
-        </defs>
-        <rect width="392" height="820" fill="url(#sky)"/>
-        <circle cx="262" cy="240" r="235" fill="url(#sun)"/>
-        <path d="M0 560 L70 470 L150 540 L230 430 L300 520 L392 450 L392 820 L0 820Z" fill="#0d0e11" opacity=".92"/>
-        <path d="M0 640 L90 560 L180 620 L270 540 L392 600 L392 820 L0 820Z" fill="#070809"/>
-        <path d="M30 705 q120 -70 200 -120 t140 -70" stroke="#E8833A" stroke-width="3" fill="none" stroke-dasharray="2 9" stroke-linecap="round" opacity=".85"/>
-      </svg>
+  <section class="screen full active" data-s="splash">
+    <div class="brandrow">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20c2-6 5-9 7-9s2-3 0-5"/><circle cx="6" cy="20" r="1.4" fill="currentColor" stroke="none"/><path d="M14 6c2 0 4 1.5 4 4"/></svg></div>
+      <span class="wordmark">Мой&nbsp;путь</span>
     </div>
-    <div style="position:relative;z-index:2;">
-      <div class="kick">твой путь к цели</div>
-      <h1 style="font-size:42px;margin:12px 0 8px;">Мой&nbsp;путь</h1>
-      <p class="mut" style="font-size:18px;line-height:1.45;max-width:310px;"><b style="color:var(--txt)">Ты сможешь.</b> Срываются все — мы поможем дойти. Здесь просто: бери и делай. Сорвался — снова делай.</p>
-      <button class="btn btn-amber" style="margin-top:22px;" onclick="go('pain')">Начать свой путь</button>
-      <p class="note" onclick="go('today')" style="cursor:pointer;">Уже с нами? <span class="amber">Войти</span></p>
+
+    <div class="heroimg" style="margin-top:14px;"><img src="img/splash-hero.jpg" alt="человек на пути к цели"></div>
+
+    <h1 style="margin-top:18px;">Дойти можно.<br>Начни сегодня.</h1>
+    <p class="mut" style="font-size:15.5px;line-height:1.5;margin-top:9px;">Срываются все — мы поможем вернуться и дойти. Бери и делай. Сорвался — снова делай.</p>
+
+    <button class="btn btn-amber" style="margin-top:18px;" onclick="go('pain')">Начать путь&nbsp;→</button>
+
+    <div class="vrow" style="margin-top:12px;">
+      <div class="vcard" onclick="go('heroes')">
+        <div class="avstack"><img src="img/hero-2.jpg"><img src="img/hero-1.jpg"><img src="img/hero-6.jpg"></div>
+        <div><b>Наши герои</b><div class="tiny dim">было&nbsp;→&nbsp;стало</div></div>
+      </div>
+      <div class="vcard" onclick="go('mentors')">
+        <img src="img/mentor-1.jpg" style="width:38px;height:38px;border-radius:50%;object-fit:cover;">
+        <div><b>Наставники</b><div class="tiny dim">кто рядом с тобой</div></div>
+      </div>
     </div>
+
+    <p class="note" style="margin-top:14px;">Уже с нами 12&nbsp;400 человек · <span class="amber" style="cursor:pointer;font-weight:700;" onclick="go('today')">Войти</span></p>
   </section>
 
   <!-- 2. ВЫБОР НАПРАВЛЕНИЯ -->
   <section class="screen full" data-s="pain">
-    <div class="kick">шаг 1 из 3</div>
-    <h1 style="margin:10px 0 6px;">Куда идём?</h1>
-    <p class="mut small">Выбери, что хочешь прокачать. Это твой старт — отсюда и пойдём.</p>
-    <div style="margin-top:18px;display:flex;flex-direction:column;gap:11px;">
-      <div class="card pick row" onclick="single(this)"><div class="av sm">🏃</div><div><b>Тело и спорт</b><div class="small mut">тренировки, форма, энергия</div></div></div>
-      <div class="card pick row" onclick="single(this)"><div class="av sm">🌿</div><div><b>Здоровье и режим</b><div class="small mut">сон, питание, подъём</div></div></div>
-      <div class="card pick row" onclick="single(this)"><div class="av sm">💰</div><div><b>Финансы ×2</b><div class="small mut">увеличение твоего дохода</div></div></div>
-      <div class="card pick row" onclick="single(this)"><div class="av sm">✅</div><div><b>Правильные привычки</b><div class="small mut">собери свой набор</div></div></div>
+    <div class="kick">Шаг 1 из 3</div>
+    <h1 style="margin:9px 0 6px;">С чего наведём порядок</h1>
+    <p class="mut small">Выбери, что качаем первым. Одно направление — один фокус. Остальное подключим позже.</p>
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:11px;">
+      <div class="card pick cat" onclick="single(this)"><div class="icc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3 8 4-16 3 8h5"/></svg></div><div><b>Тело и спорт</b><div class="small mut">Тренировки, движение, сила. Тело, в котором уверенно.</div></div></div>
+      <div class="card pick cat" onclick="single(this)"><div class="icc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v3M5 11a7 7 0 0 1 14 0M3 18h18M8.5 18a3.5 3.5 0 0 1 7 0"/></svg></div><div><b>Здоровье и режим</b><div class="small mut">Сон, подъём, энергия. День, который ты держишь сам.</div></div></div>
+      <div class="card pick cat" onclick="single(this)"><div class="icc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div><div><b>Финансы&nbsp;×2</b><div class="small mut">Деньги под контролем, действия каждый день — рост дохода.</div></div></div>
+      <div class="card pick cat" onclick="single(this)"><div class="icc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg></div><div><b>Привычки</b><div class="small mut">Маленькие шаги, которые собираются в новую жизнь.</div></div></div>
     </div>
-    <div class="spacer"></div>
+    <div class="spacer" style="min-height:14px;"></div>
     <button class="btn btn-amber" onclick="go('minimum')">Дальше</button>
   </section>
 
-  <!-- 3. ВЫБОР МИНИМУМА (МУЛЬТИ) -->
+  <!-- 3. МИНИМУМ -->
   <section class="screen full" data-s="minimum">
-    <div class="kick">шаг 2 из 3 · метод минимум→максимум</div>
-    <h1 style="margin:10px 0 6px;">Собери свой минимум</h1>
-    <p class="mut small">Это комплекс — отметь несколько привычек, которые потянешь даже в плохой день. Можно 1–2, но лучше 3–4. Дальше нарастим.</p>
-    <div class="tasks card" style="margin-top:16px;">
-      <div class="t pick on row" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Подъём в одно время</span></div>
-      <div class="t pick on row" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Выбежать / прогулка 10 минут</span></div>
-      <div class="t pick row" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">20 отжиманий</span></div>
-      <div class="t pick on row" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Стакан воды с утра</span></div>
-      <div class="t pick row" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Зарядка 10 минут</span></div>
-      <div class="t pick on row" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Не есть после 20:00</span></div>
+    <div class="kick">Шаг 2 из 3</div>
+    <h1 style="margin:9px 0 6px;">Твой минимум на каждый день</h1>
+    <p class="mut small">Отметь привычки, которые реально потянешь. Лучше мало и стабильно, чем много и в ноль.</p>
+    <div class="tasks card" style="margin-top:15px;">
+      <div class="t on" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Подъём в одно время</span></div>
+      <div class="t on" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Прогулка / пробежка 10 минут</span></div>
+      <div class="t" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">20 отжиманий</span></div>
+      <div class="t on" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Стакан воды с утра</span></div>
+      <div class="t" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Зарядка 10 минут</span></div>
+      <div class="t on" onclick="multi(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Не есть после 20:00</span></div>
     </div>
-    <div class="card" style="margin-top:12px;background:var(--amber-soft);border-color:transparent;">
-      <div class="small"><b class="amber">Почему минимум?</b> <span class="mut">Сначала планка, которую не слить, — она держит тебя, когда нет сил. Дальше добавим.</span></div>
+    <div class="card2" style="margin-top:12px;">
+      <b class="amber small">Почему минимум, а не максимум</b>
+      <p class="small mut" style="margin-top:5px;">Минимум невозможно провалить. Сделал по чуть-чуть каждый день — и через месяц ты другой человек. Планку поднимем, когда привыкнешь побеждать.</p>
     </div>
-    <div class="spacer"></div>
-    <button class="btn btn-amber" onclick="go('mentor')">Дальше</button>
+    <div class="spacer" style="min-height:14px;"></div>
+    <button class="btn btn-amber" onclick="go('mentor')">Закрепить минимум</button>
   </section>
 
-  <!-- 4. САМ / ВМЕСТЕ -->
+  <!-- 4. САМ / С НАСТАВНИКОМ -->
   <section class="screen full" data-s="mentor">
-    <div class="kick">шаг 3 из 3</div>
-    <h1 style="margin:10px 0 6px;">Один или<br>вместе?</h1>
-    <p class="mut small">Пойдёшь один — скорее сольёшься. Вместе с наставником — проще, надёжнее и точно дойдём.</p>
+    <div class="kick">Шаг 3 из 3</div>
+    <h1 style="margin:9px 0 6px;">Идёшь сам или<br>с наставником</h1>
+    <p class="mut small">Сам — твой темп, твои правила. С наставником — рядом человек, который прошёл этот путь и подстрахует на срыве. Оба варианта рабочие.</p>
+
+    <div class="choice" style="margin-top:20px;">
+      <div class="ch" onclick="toast('Окей, идёшь сам. Захочешь — наставник рядом 👊','ok');go('today')">
+        <div class="chic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 4-7 8-7s8 2.5 8 7"/></svg></div>
+        <b>Сам</b>
+        <div class="d">Свой темп,<br>свои правила</div>
+      </div>
+      <div class="ch rec" onclick="go('today')">
+        <span class="recbadge">советуем</span>
+        <img class="chph" src="img/mentor-1.jpg" alt="Александр">
+        <b>С наставником</b>
+        <div class="d">Александр рядом<br>до результата</div>
+      </div>
+    </div>
+
     <div class="card" style="margin-top:16px;">
-      <div class="row"><div class="av" style="width:48px;height:48px;">А</div><div><b style="font-size:16px;">Александр</b> <span class="chip">наставник</span><div class="small mut" style="margin-top:2px;">25 лет дисциплины. Падал и возвращался.</div></div></div>
-      <p class="small mut" style="margin-top:12px;border-top:1px solid var(--line);padding-top:11px;">«Видит твои чек-ины, поддержит и вернёт после срыва. Ты не один.»</p>
+      <div class="row"><img class="av" src="img/mentor-1.jpg" alt=""><div><b>Александр</b> <span class="chip">наставник</span><div class="small mut" style="margin-top:3px;">25 лет в дисциплине. Падал, возвращался, доходил.</div></div></div>
+      <p class="small mut" style="margin-top:11px;border-top:1px solid var(--line);padding-top:11px;font-style:normal;">«Я не верю в силу воли по щелчку. Верю в систему и в то, что после срыва ты снова встаёшь. Покажу как.»</p>
     </div>
-    <div style="margin-top:14px;display:flex;flex-direction:column;gap:11px;">
-      <button class="btn btn-amber" onclick="go('today')">Вместе — доведём до результата →</button>
-      <button class="btn btn-ghost" onclick="toast('Окей, пробуем сам. Захочешь — наставник рядом 👊');go('today')">Сам · 7 дней бесплатно</button>
-    </div>
-    <p class="note">«Сам» — попробовать бесплатно. «Вместе» — с наставником до цели.</p>
+    <p class="note">Передумаешь — переключишься в любой момент. Это не клетка.</p>
   </section>
 
   <!-- 5. СЕГОДНЯ -->
   <section class="screen" data-s="today">
-    <div class="row" style="justify-content:space-between;">
+    <div class="row between">
       <div><div class="dim small">Среда, 26 июня</div><h2>Сегодня</h2></div>
-      <div class="chip gold" onclick="go('rewards')" style="cursor:pointer;">⭐ <span id="ptsTop">340</span></div>
+      <div class="chip" onclick="go('path');seg(document.querySelectorAll('.seg button')[1],1)" style="cursor:pointer;"><svg style="width:15px;height:15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .6-4.5 4 1.3 6L12 16.6 6.6 19.2l1.3-6-4.5-4 6-.6z"/></svg> <span class="num" id="ptsTop">340</span></div>
     </div>
 
     <div class="card" style="margin-top:14px;display:flex;gap:16px;align-items:center;">
-      <svg width="72" height="72" class="ring" viewBox="0 0 72 72">
-        <circle cx="36" cy="36" r="30" stroke="#2A2E37"/>
-        <circle id="dayRing" cx="36" cy="36" r="30" stroke="#E8833A" stroke-dasharray="188" stroke-dashoffset="141"/>
+      <svg width="70" height="70" class="ring" viewBox="0 0 72 72">
+        <circle cx="36" cy="36" r="30" stroke="#F1E7D6"/>
+        <circle id="dayRing" cx="36" cy="36" r="30" stroke="#F0792F" stroke-dasharray="188" stroke-dashoffset="141"/>
       </svg>
-      <div style="flex:1;"><div class="small mut">Твой минимум сегодня</div><b style="font-size:18px;"><span id="doneN">1</span> из 4 сделано</b><div class="small dim" id="dayState">отметь привычки ниже ↓</div></div>
+      <div style="flex:1;"><div class="small mut">Твой минимум сегодня</div><b style="font-size:18px;"><span class="num" id="doneN">1</span> из 4 сделано</b><div class="small dim" id="dayState">отметь привычки ниже ↓</div></div>
     </div>
 
     <div class="card tasks" style="margin-top:12px;">
-      <div class="t done" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Подъём 7:00</span></div>
-      <div class="t" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Выбежать 10 минут</span></div>
-      <div class="t" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Стакан воды с утра</span></div>
-      <div class="t" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#160d06" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Не есть после 20:00</span></div>
+      <div class="t done" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Подъём 7:00</span></div>
+      <div class="t" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Пробежка 10 минут</span></div>
+      <div class="t" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Стакан воды с утра</span></div>
+      <div class="t" onclick="tapHabit(this)"><div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><span class="lbl">Не есть после 20:00</span></div>
     </div>
 
-    <div class="card" style="margin-top:12px;background:linear-gradient(135deg,#231a12,#16130f);border-color:rgba(243,192,74,.25);">
-      <div class="kick gold" style="color:var(--gold)">цитата дня</div>
-      <p style="margin-top:7px;font-size:15.5px;font-weight:600;line-height:1.4;">«Срываются все. Чемпион — не тот, кто не падает, а кто встаёт и идёт снова.»</p>
+    <div class="quote" style="margin-top:12px;">
+      <div class="kick">Цитата дня</div>
+      <p style="margin-top:8px;font-size:15.5px;font-weight:600;line-height:1.4;">«Не обязательно быть лучшим. Обязательно — сделать сегодня то, что обещал себе.»</p>
     </div>
 
     <div class="card" style="margin-top:12px;">
-      <div class="row"><div class="av sm">А</div><div><b class="small">Александр</b> <span class="dim small">· напутствие</span></div></div>
-      <p class="bubble" style="margin-top:9px;max-width:100%;">С утра тяжело — это норма. Сделай минимум, остальное приложится. Я рядом 💪</p>
-      <button class="btn btn-ghost btn-sm" style="margin-top:10px;width:100%;" onclick="go('mentorchat')">Ответить наставнику</button>
+      <div class="row"><img class="av sm" src="img/mentor-1.jpg" alt=""><div><b class="small">Александр</b> <span class="dim small">· напутствие</span></div></div>
+      <p class="bubble" style="margin-top:9px;max-width:100%;">С добрым утром. Сегодня просто закрой свой минимум — этого достаточно. Я рядом 💪</p>
+      <div class="row" style="gap:9px;margin-top:11px;">
+        <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="go('checkin')">Чек-ин дня</button>
+        <button class="btn btn-amber btn-sm" style="flex:1;" onclick="go('mentorchat')">Ответить</button>
+      </div>
+    </div>
+
+    <div class="card2" style="margin-top:12px;display:flex;align-items:center;gap:12px;cursor:pointer;" onclick="go('heroes')">
+      <div class="avstack"><img src="img/hero-1.jpg" style="width:32px;height:32px;border-radius:50%;border:2px solid #fff;object-fit:cover;"><img src="img/hero-4.jpg" style="width:32px;height:32px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-9px;"><img src="img/hero-5.jpg" style="width:32px;height:32px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-9px;"></div>
+      <div style="flex:1;"><b class="small">Истории героев</b><div class="tiny dim">было → стало · заряжает</div></div>
+      <span class="amber" style="font-weight:700;">→</span>
     </div>
     <div class="note">Прототип: данные демонстрационные.</div>
   </section>
 
   <!-- 6. ЧЕК-ИН -->
   <section class="screen" data-s="checkin">
-    <div class="kick">чек-ин · 26 июня</div>
-    <h2 style="margin:8px 0 4px;">Как ты сегодня?</h2>
+    <div class="backbar" onclick="go('today')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Сегодня</div>
+    <h2>Как ты сегодня?</h2>
     <p class="small mut">Честно — это видит только твой наставник.</p>
     <div class="card" style="margin-top:14px;">
-      <div class="row" style="justify-content:space-between;"><b class="small">Сон</b><span class="amber" id="v1">7</span></div>
+      <div class="row between"><b class="small">Сон</b><span class="amber num" id="v1">7</span></div>
       <input type="range" min="1" max="10" value="7" oninput="document.getElementById('v1').textContent=this.value">
-      <div class="row" style="justify-content:space-between;margin-top:16px;"><b class="small">Энергия</b><span class="amber" id="v2">6</span></div>
+      <div class="row between" style="margin-top:18px;"><b class="small">Энергия</b><span class="amber num" id="v2">6</span></div>
       <input type="range" min="1" max="10" value="6" oninput="document.getElementById('v2').textContent=this.value">
-      <div class="row" style="justify-content:space-between;margin-top:16px;"><b class="small">Настроение</b><span class="amber" id="v3">8</span></div>
+      <div class="row between" style="margin-top:18px;"><b class="small">Настроение</b><span class="amber num" id="v3">8</span></div>
       <input type="range" min="1" max="10" value="8" oninput="document.getElementById('v3').textContent=this.value">
     </div>
-    <div class="card" style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:center;border-style:dashed;color:var(--mut);" onclick="toast('Фото-пруф прикреплён ✓')">
+    <div class="card" style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:center;border-style:dashed;color:var(--mut);cursor:pointer;" onclick="toast('Фото-пруф прикреплён ✓','ok')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/></svg>
       <span class="small">Прикрепить фото-пруф</span>
     </div>
-    <button class="btn btn-amber" style="margin-top:14px;" onclick="toast('Чек-ин отправлен наставнику ✓');go('today')">Отправить наставнику</button>
+    <button class="btn btn-amber" style="margin-top:14px;" onclick="toast('Чек-ин отправлен наставнику ✓','ok');go('today')">Отправить наставнику</button>
   </section>
 
-  <!-- 7. ПУТЬ (прогресс / награды / вызовы) -->
+  <!-- 7. ПУТЬ -->
   <section class="screen" data-s="path">
     <h2>Твой путь</h2>
     <div class="seg" style="margin-top:14px;">
@@ -231,151 +331,295 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
       <button onclick="seg(this,2)">Вызовы</button>
     </div>
 
-    <!-- pane 0: прогресс -->
+    <!-- pane 0 -->
     <div class="pane" data-p="0" style="margin-top:16px;">
       <div class="card">
-        <div class="row" style="justify-content:space-between;"><b class="small">Бег · минимум→максимум</b><span class="chip">+растём</span></div>
-        <div style="display:flex;align-items:flex-end;gap:7px;height:110px;margin-top:14px;">
-          <div style="flex:1;background:var(--card2);border-radius:7px;height:30%;"></div>
-          <div style="flex:1;background:var(--card2);border-radius:7px;height:34%;"></div>
-          <div style="flex:1;background:var(--card2);border-radius:7px;height:48%;"></div>
-          <div style="flex:1;background:linear-gradient(180deg,var(--amber),var(--amber2));border-radius:7px;height:62%;"></div>
-          <div style="flex:1;background:linear-gradient(180deg,var(--amber),var(--amber2));border-radius:7px;height:80%;"></div>
-          <div style="flex:1;background:linear-gradient(180deg,var(--amber),var(--amber2));border-radius:7px;height:100%;"></div>
+        <div class="row between"><b class="small">Пробежка · минимум → максимум</b><span class="chip grn">растём</span></div>
+        <div style="display:flex;align-items:flex-end;gap:7px;height:108px;margin-top:14px;">
+          <div style="flex:1;background:var(--surface2);border-radius:7px;height:30%;"></div>
+          <div style="flex:1;background:var(--surface2);border-radius:7px;height:34%;"></div>
+          <div style="flex:1;background:var(--surface2);border-radius:7px;height:48%;"></div>
+          <div style="flex:1;background:var(--grad-btn);border-radius:7px;height:62%;"></div>
+          <div style="flex:1;background:var(--grad-btn);border-radius:7px;height:80%;"></div>
+          <div style="flex:1;background:var(--grad-btn);border-radius:7px;height:100%;"></div>
         </div>
-        <div class="row" style="justify-content:space-between;margin-top:8px;"><span class="small dim">мин. 10 мин</span><span class="small amber">сейчас 25 мин</span></div>
+        <div class="row between" style="margin-top:8px;"><span class="small dim">мин. 10 мин</span><span class="small amber" style="font-weight:700;">сейчас 25 мин</span></div>
       </div>
-      <div class="card" style="margin-top:12px;text-align:center;background:var(--amber-soft);border-color:transparent;">
-        <div style="font-size:30px;">🤝</div>
-        <b style="display:block;margin-top:6px;font-size:17px;">Сорвался? Это нормально.</b>
-        <p class="small mut" style="margin-top:6px;">Главное — вернуться. У тебя 2 возврата, и за каждый — бонус. Это и есть характер.</p>
-        <button class="btn btn-amber btn-sm" style="margin:12px auto 0;width:100%;" onclick="toast('С возвращением! +30 баллов за возврат 🔥');go('today')">Я вернулся (+30 ⭐)</button>
+      <div class="card" style="margin-top:12px;text-align:center;">
+        <div class="icc" style="margin:0 auto;width:54px;height:54px;border-radius:50%;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 4v5h-5"/></svg></div>
+        <b style="display:block;margin-top:10px;font-size:17px;font-family:Unbounded;font-weight:600;">Сорвался — это часть пути</b>
+        <p class="small mut" style="margin-top:7px;">Срыв не обнуляет тебя. Он обнуляет один день. Серию начнём заново прямо сейчас — без вины. Встал, отряхнулся, пошёл дальше.</p>
+        <button class="btn btn-amber btn-sm" style="margin:14px auto 0;width:100%;" onclick="addPts(30,'С возвращением! +30 баллов за возврат 🔥');go('today')">Начать заново сегодня · +30</button>
       </div>
     </div>
 
-    <!-- pane 1: награды -->
+    <!-- pane 1 — НАГРАДЫ (разрежено) -->
     <div class="pane" data-p="1" style="margin-top:16px;display:none;">
-      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div class="small mut">Твои баллы</div><b style="font-size:26px;" class="gold">⭐ <span id="ptsBig">340</span></b></div>
-        <div style="text-align:right;"><div class="small mut">Уровень</div><b style="font-size:20px;">3 · «В ритме»</b></div>
-      </div>
-      <b class="small" style="display:block;margin:16px 0 10px;">Медали</b>
-      <div class="medals">
-        <div class="med on">🥇<span>Первый шаг</span></div>
-        <div class="med on">🔥<span>7 дней</span></div>
-        <div class="med on">🔄<span>Вернулся</span></div>
-        <div class="med on">🌅<span>Ранняя пташка</span></div>
-        <div class="med on">🏃<span>10 кроссов</span></div>
-        <div class="med lock">🏆<span>Чемпион недели</span></div>
-        <div class="med lock">💎<span>20 дней без срыва</span></div>
-        <div class="med lock">⚡<span>Наставник гордится</span></div>
-      </div>
-      <div class="sharecard" style="margin-top:16px;">
-        <div class="row" style="justify-content:space-between;position:relative;z-index:2;"><b>Мой путь</b><span class="chip gold">⭐ 340</span></div>
-        <div style="display:flex;gap:18px;margin-top:14px;position:relative;z-index:2;">
-          <div><b style="font-size:24px;">11</b><div class="small mut">дней в деле</div></div>
-          <div><b style="font-size:24px;" class="amber">32 км</b><div class="small mut">за неделю</div></div>
-          <div><b style="font-size:24px;" class="gold">5</b><div class="small mut">медалей</div></div>
+      <div class="sharecard">
+        <div class="row between z"><b style="font-family:Unbounded;">Мой путь</b><span class="chip" style="background:rgba(255,255,255,.25);color:#fff;">11 дней в деле</span></div>
+        <div class="z" style="display:flex;gap:22px;margin-top:16px;">
+          <div><b class="num" style="font-size:26px;">340</b><div class="tiny" style="opacity:.85;">баллов</div></div>
+          <div><b class="num" style="font-size:26px;">32</b><div class="tiny" style="opacity:.85;">км за неделю</div></div>
+          <div><b class="num" style="font-size:26px;">5</b><div class="tiny" style="opacity:.85;">медалей</div></div>
         </div>
-        <button class="btn btn-amber btn-sm" style="margin-top:14px;width:100%;position:relative;z-index:2;" onclick="toast('Карточка готова к публикации в сторис 📲')">Поделиться достижением</button>
+        <button class="btn z" style="margin-top:16px;background:#fff;color:var(--accent-d);box-shadow:none;" onclick="toast('Карточка готова — публикуй в сторис 📲','share')">Поделиться достижением</button>
       </div>
-      <p class="note">Делишься в сторис — друзья видят твой прогресс и логотип «Мой путь».</p>
+
+      <div class="card" style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;">
+        <div><div class="small mut">Уровень</div><b style="font-size:18px;font-family:Unbounded;">3 · «В ритме»</b></div>
+        <div style="text-align:right;"><div class="small mut">До 4-го</div><b class="amber num" style="font-size:18px;">160 ⭐</b></div>
+      </div>
+
+      <b class="small" style="display:block;margin:18px 2px 12px;">Медали</b>
+      <div class="medals">
+        <div class="med amber" onclick="toast('Поделиться: «Первый шаг» 📲','share')"><div class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8 11l8-5M8 13l8 5"/></svg></div><div class="medic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l7-5 7 5V3z"/></svg></div><b>Первый шаг</b><span class="st">получено</span></div>
+        <div class="med amber" onclick="toast('Поделиться: «7 дней подряд» 📲','share')"><div class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8 11l8-5M8 13l8 5"/></svg></div><div class="medic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-2 1-3 2-5 1 2 3 2 3-4z"/></svg></div><b>7 дней подряд</b><span class="st">получено</span></div>
+        <div class="med grn" onclick="toast('Поделиться: «Вернулся после срыва» 📲','share')"><div class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8 11l8-5M8 13l8 5"/></svg></div><div class="medic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 4v5h-5"/></svg></div><b>Вернулся</b><span class="st">получено</span></div>
+        <div class="med amber" onclick="toast('Поделиться: «Ранняя пташка» 📲','share')"><div class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8 11l8-5M8 13l8 5"/></svg></div><div class="medic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v3M5 12a7 7 0 0 1 14 0M3 18h18"/></svg></div><b>Ранняя пташка</b><span class="st">получено</span></div>
+        <div class="med lock"><div class="medic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><b>20 дней без срыва</b><span class="st">9 / 20</span></div>
+        <div class="med lock"><div class="medic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><b>Чемпион недели</b><span class="st">скоро</span></div>
+      </div>
+      <p class="note">Открой любую медаль — поделись в сторис. Твоя победа заведёт того, кто пока сомневается.</p>
     </div>
 
-    <!-- pane 2: вызовы / ставка -->
+    <!-- pane 2 — ВЫЗОВЫ -->
     <div class="pane" data-p="2" style="margin-top:16px;display:none;">
       <div class="card">
-        <div class="row" style="justify-content:space-between;"><b>Поставь на свою победу</b><span class="chip gold">⭐ ставка</span></div>
-        <p class="small mut" style="margin-top:7px;">Цель недели: <b style="color:var(--txt)">5 кроссов</b>. Поставь баллы на себя. Выполнишь — вернём ×2. Не выполнишь — сгорят. Так держит лучше всего.</p>
-        <div class="seg" style="margin-top:12px;">
+        <div class="row between"><b>Ставка на себя</b><span class="chip"><svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .6-4.5 4 1.3 6L12 16.6 6.6 19.2l1.3-6-4.5-4 6-.6z"/></svg> ставка</span></div>
+        <p class="small mut" style="margin-top:8px;">Поставь баллы на то, что удержишь серию. Дошёл — забираешь вдвое. Это разговор с собой: веришь в себя? Покажи делом.</p>
+        <div class="seg" style="margin-top:13px;">
           <button class="on">100 ⭐</button><button>200 ⭐</button><button>300 ⭐</button>
         </div>
-        <button class="btn btn-amber" style="margin-top:12px;" onclick="toast('Ставка принята! 100 ⭐ на 5 кроссов. Погнали 💪')">Поставить на победу</button>
+        <button class="btn btn-amber" style="margin-top:13px;" onclick="toast('Ставка принята! 100 ⭐ на серию. Погнали 💪','ok')">Поставить на победу</button>
       </div>
       <div class="card" style="margin-top:12px;">
-        <div class="row" style="justify-content:space-between;"><b>Зарубиться с другом</b><span class="chip">дуэль</span></div>
-        <div class="row" style="margin-top:12px;justify-content:space-around;text-align:center;">
-          <div><div class="av" style="margin:0 auto;">С</div><div class="small" style="margin-top:5px;">Ты · 11 дн</div></div>
-          <b class="amber" style="font-size:20px;">VS</b>
-          <div><div class="av sm" style="margin:0 auto;width:42px;height:42px;">И</div><div class="small" style="margin-top:5px;">Игорь · 9 дн</div></div>
+        <div class="row between"><b>Дуэль с другом</b><span class="chip neu">наперегонки</span></div>
+        <div class="duel" style="margin-top:14px;">
+          <div><div class="av avtxt" style="margin:0 auto;">С</div><div class="small" style="margin-top:6px;">Ты · <b>11 дн</b></div></div>
+          <b class="amber num" style="font-size:18px;">VS</b>
+          <div><div class="av avtxt" style="margin:0 auto;background:linear-gradient(135deg,#1AA06A,#37C18A);">И</div><div class="small" style="margin-top:6px;">Игорь · <b>9 дн</b></div></div>
         </div>
-        <p class="small mut" style="margin-top:10px;text-align:center;">Кто продержится дольше за неделю — забирает банк 500 ⭐.</p>
-        <button class="btn btn-ghost btn-sm" style="margin-top:10px;width:100%;" onclick="toast('Вызов отправлен Игорю 🔥')">Бросить вызов</button>
+        <p class="small mut" style="margin-top:12px;text-align:center;">Кто стабильнее всю неделю — забирает банк <b class="amber">500 ⭐</b>.</p>
+        <button class="btn btn-ghost btn-sm" style="margin-top:11px;width:100%;" onclick="toast('Вызов отправлен Игорю 🔥','ok')">Бросить вызов</button>
       </div>
     </div>
   </section>
 
-  <!-- 8. НАСТАВНИК ЧАТ -->
+  <!-- 8. ЧАТ НАСТАВНИКА -->
   <section class="screen" data-s="mentorchat">
-    <div class="row" style="gap:11px;"><div class="av sm">А</div><div><b>Александр</b><div class="small" style="color:var(--green)">● на связи</div></div></div>
+    <div class="row between">
+      <div class="row" style="gap:11px;"><img class="av sm" src="img/mentor-1.jpg" alt=""><div><b>Александр</b><div class="small grn">● на связи</div></div></div>
+      <span class="chip neu" style="cursor:pointer;" onclick="go('mentors')">Все наставники →</span>
+    </div>
     <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px;">
       <div class="bubble">Видел твой чек-ин — энергия проседает. Как сам?</div>
       <div class="bubble me">Вечером тяжело, боюсь слиться к выходным</div>
       <div class="bubble">Понял. До выходных — только минимум, не геройствуй. Вернёмся к 25 минутам на след. неделе. Ты сможешь 👊</div>
     </div>
-    <div class="card" style="margin-top:14px;background:var(--card2);">
+    <div class="card2" style="margin-top:14px;">
       <b class="small">План недели от наставника</b>
       <div class="tasks" style="margin-top:4px;">
-        <div class="t"><div class="box"></div><span class="lbl small">Пн–Пт: минимум 10 мин</span></div>
-        <div class="t"><div class="box"></div><span class="lbl small">Сб: пробег до парка</span></div>
-        <div class="t"><div class="box"></div><span class="lbl small">Пт 18:00: созвон 5 мин</span></div>
+        <div class="t"><div class="box"></div><span class="lbl small">Пн–Пт: минимум 10 минут</span></div>
+        <div class="t"><div class="box"></div><span class="lbl small">Сб: пробежка до парка</span></div>
+        <div class="t"><div class="box"></div><span class="lbl small">Пт 18:00: созвон 5 минут</span></div>
       </div>
     </div>
-    <div class="spacer"></div>
-    <div class="row" style="gap:10px;"><div class="card" style="flex:1;color:var(--mut);">Написать сообщение…</div><button class="btn btn-amber" style="width:54px;height:54px;border-radius:16px;flex:none;" onclick="toast('Отправлено ✓')">→</button></div>
+    <div class="spacer" style="min-height:14px;"></div>
+    <div class="row" style="gap:10px;"><div class="card" style="flex:1;color:var(--mut);padding:15px;">Написать сообщение…</div><button class="btn btn-amber" style="width:54px;height:54px;border-radius:16px;flex:none;padding:0;" onclick="toast('Отправлено ✓','ok')">→</button></div>
   </section>
 
   <!-- 9. СРЕДА -->
   <section class="screen" data-s="team">
-    <h2>Чат чемпионов</h2>
-    <p class="small mut">Один не пришёл — трое пришли, и ты всё равно пойдёшь. Среда тащит.</p>
-    <div class="card" style="margin-top:14px;background:var(--amber-soft);border-color:transparent;">
-      <div class="row" style="justify-content:space-between;"><b>Команда «Рассвет»</b><span class="chip">6 из 8 в деле</span></div>
+    <h2>Среда</h2>
+    <p class="small mut">Чат тех, кто тоже доходит. Здесь не ноют — поддерживают, делятся победами и тянут друг друга вперёд.</p>
+    <div class="card2" style="margin-top:14px;">
+      <div class="row between"><b>Команда «Рассвет»</b><span class="chip grn">6 из 8 в деле</span></div>
     </div>
-    <div class="feed" style="margin-top:8px;">
-      <div class="f"><div class="av sm">И</div><div><b class="small">Игорь</b> <span class="dim small">· 7:10</span><div class="small mut">Пробежал под дождём. Не хотел — побежал.</div><div class="chip" style="margin-top:6px;">🔥 12 · ты сможешь!</div></div></div>
-      <div class="f"><div class="av sm">М</div><div><b class="small">Марина</b> <span class="dim small">· 8:02</span><div class="small mut">Сорвалась вчера — сегодня вернулась 💪</div><div class="chip gold" style="margin-top:6px;">🔄 +30 ⭐ за возврат</div></div></div>
-      <div class="f"><div class="av sm">Д</div><div><b class="small">Дмитрий</b> <span class="dim small">· 8:40</span><div class="small mut">11 дней подряд, держусь!</div><div class="chip" style="margin-top:6px;">👏 15 поддержали</div></div></div>
+    <div class="card feed" style="margin-top:12px;">
+      <div class="f"><div class="av sm avtxt" style="background:linear-gradient(135deg,#1AA06A,#37C18A);">И</div><div><b class="small">Игорь</b> <span class="dim small">· 7:10</span><div class="small mut">Пробежал под дождём. Не хотел — побежал.</div><div class="chip" style="margin-top:7px;">🔥 12 · красава</div></div></div>
+      <div class="f"><div class="av sm avtxt">М</div><div><b class="small">Марина</b> <span class="dim small">· 8:02</span><div class="small mut">Сорвалась вчера — сегодня вернулась 💪</div><div class="chip grn" style="margin-top:7px;">+30 ⭐ за возврат</div></div></div>
+      <div class="f"><div class="av sm avtxt" style="background:linear-gradient(135deg,#7C5CFF,#A78BFA);">Д</div><div><b class="small">Дмитрий</b> <span class="dim small">· 8:40</span><div class="small mut">11 дней подряд, держусь!</div><div class="chip neu" style="margin-top:7px;">👏 15 поддержали</div></div></div>
     </div>
-    <button class="btn btn-ghost" onclick="toast('Поддержка отправлена команде 🔥')">Поддержать команду</button>
+    <button class="btn btn-amber" style="margin-top:14px;" onclick="toast('Поддержка отправлена команде 🔥','ok')">Поддержать команду</button>
   </section>
 
   <!-- 10. ПРОФИЛЬ -->
   <section class="screen" data-s="profile">
-    <div class="row" style="gap:14px;"><div class="av" style="width:58px;height:58px;font-size:23px;">С</div><div><h2>Сергей</h2><div class="small mut">11 дней · команда «Рассвет»</div></div></div>
+    <div class="row" style="gap:14px;"><div class="av avtxt" style="width:58px;height:58px;font-size:23px;">С</div><div><h2>Сергей</h2><div class="small mut">11 дней · команда «Рассвет»</div></div></div>
     <div class="card" style="margin-top:14px;">
-      <div class="row" style="justify-content:space-between;"><b>Уровень 3 · «В ритме»</b><span class="amber small">340 / 500 ⭐</span></div>
+      <div class="row between"><b>Уровень 3 · «В ритме»</b><span class="amber small num" style="font-weight:700;">340 / 500 ⭐</span></div>
       <div class="lvlbar" style="margin-top:10px;"><i style="width:68%"></i></div>
-      <div class="small dim" style="margin-top:8px;">Баллы — за действия, за возвраты после срыва и за стрик. Не за идеальность, а за то, что продолжаешь.</div>
+      <div class="small dim" style="margin-top:9px;">Каждый закрытый день — плюс к уровню. Ты растёшь не рывками, а стабильно.</div>
     </div>
     <div class="row" style="gap:10px;margin-top:12px;">
-      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;">11</b><div class="small mut">дней</div></div>
-      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;" class="gold">5</b><div class="small mut">медалей</div></div>
-      <div class="card" style="flex:1;text-align:center;"><b style="font-size:22px;" class="amber">2</b><div class="small mut">возврата</div></div>
+      <div class="card" style="flex:1;text-align:center;"><b class="num" style="font-size:22px;">11</b><div class="small mut">дней</div></div>
+      <div class="card" style="flex:1;text-align:center;"><b class="num amber" style="font-size:22px;">5</b><div class="small mut">медалей</div></div>
+      <div class="card" style="flex:1;text-align:center;"><b class="num grn" style="font-size:22px;">2</b><div class="small mut">возврата</div></div>
     </div>
-    <button class="btn btn-ghost btn-sm" style="margin-top:12px;width:100%;" onclick="go('path');seg(document.querySelectorAll('.seg button')[1],1)">Мои награды и медали →</button>
+
     <div class="card" style="margin-top:12px;">
-      <b class="small">Дальше — экосистема</b>
-      <p class="small mut" style="margin-top:6px;">Освоил первые привычки → доступ к профи-наставникам под большие цели (форма, бизнес, проект).</p>
-      <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap;"><span class="chip" style="background:var(--card2);color:var(--mut);">🔒 Профи-наставники</span><span class="chip" style="background:var(--card2);color:var(--mut);">🔒 Оффлайн-лагеря</span></div>
+      <b class="small">Твои награды</b>
+      <p class="small mut" style="margin-top:6px;">Медали за серии, уровни, выполненные вызовы. Всё на видном месте — открой любую и поделись.</p>
+      <button class="btn btn-ghost btn-sm" style="margin-top:11px;width:100%;" onclick="go('path');seg(document.querySelectorAll('.seg button')[1],1)">Открыть награды →</button>
     </div>
+
+    <div class="row" style="gap:10px;margin-top:12px;">
+      <div class="vcard" style="flex:1;" onclick="go('heroes')"><div class="avstack"><img src="img/hero-2.jpg"><img src="img/hero-3.jpg"></div><div><b>Наши герои</b><div class="tiny dim">было → стало</div></div></div>
+      <div class="vcard" style="flex:1;" onclick="go('mentors')"><img src="img/mentor-4.jpg" style="width:34px;height:34px;border-radius:50%;object-fit:cover;"><div><b>Наставники</b><div class="tiny dim">кто рядом</div></div></div>
+    </div>
+
     <button class="btn btn-ghost" style="margin-top:12px;" onclick="go('splash')">↺ Пройти онбординг заново</button>
   </section>
 
-  <div class="toast" id="toast"><div class="av sm" id="toastAv">⭐</div><div class="small" id="toastMsg"></div></div>
+  <!-- 11. НАШИ ГЕРОИ -->
+  <section class="screen full" data-s="heroes">
+    <div class="backbar" onclick="back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Назад</div>
+    <h1 style="font-size:24px;">Наши герои</h1>
+    <p class="mut small" style="margin-top:7px;">Реальные люди и реальные результаты: было так — стало так. Большие победы и маленькие шаги — всё считается. Листай и заряжайся.</p>
+
+    <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
+      <div class="hcard">
+        <img src="img/hero-2.jpg" alt="Игорь">
+        <div class="hbody">
+          <div class="row between"><b style="font-size:17px;">Игорь</b><span class="chip">−8 кг</span></div>
+          <div class="tiny dim" style="margin-top:2px;">38 лет · логист · Тело и спорт</div>
+          <div class="ba w"><span class="dot"></span><div class="small mut">Десять лет «с понедельника». Одышка на третьем этаже, 96 кг, зал бросал через неделю.</div></div>
+          <div class="ba s"><span class="dot"></span><div class="small">88 кг, бегаю 5 км без остановки, на свой шестой этаж — пешком. Жена заметила первой.</div></div>
+          <div class="hquote">«Я не стал железным человеком. Я просто перестал бросать.»</div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <img src="img/hero-1.jpg" alt="Кристина">
+        <div class="hbody">
+          <div class="row between"><b style="font-size:17px;">Кристина</b><span class="chip">60 дней зарядки</span></div>
+          <div class="tiny dim" style="margin-top:2px;">31 год · бухгалтер · Тело и спорт</div>
+          <div class="ba w"><span class="dot"></span><div class="small mut">Сидячая работа, спина болела к обеду, вечером сил — только на сериалы.</div></div>
+          <div class="ba s"><span class="dot"></span><div class="small">Каждое утро 10 минут растяжки и 50 приседаний. Спина не ноет, хожу пешком две остановки.</div></div>
+          <div class="hquote">«Я не села на шпагат. Но я больше не та, что доползает до дивана. Дуэль с подругой реально завела.»</div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <img src="img/hero-3.jpg" alt="Марина">
+        <div class="hbody">
+          <div class="row between"><b style="font-size:17px;">Марина</b><span class="chip grn">сон в 23:30</span></div>
+          <div class="tiny dim" style="margin-top:2px;">29 лет · мама в декрете · Здоровье и режим</div>
+          <div class="ba w"><span class="dot"></span><div class="small mut">Ложилась в 2–3 ночи, вставала разбитой, кофе литрами. С ребёнком — на нуле.</div></div>
+          <div class="ba s"><span class="dot"></span><div class="small">Засыпаю до полуночи почти каждый день. Утро перестало быть пыткой.</div></div>
+          <div class="hquote">«Маленькая победа, но впервые за два года я высыпаюсь.»</div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <img src="img/hero-4.jpg" alt="Денис">
+        <div class="hbody">
+          <div class="row between"><b style="font-size:17px;">Денис</b><span class="chip">+40 000 ₽ подушка</span></div>
+          <div class="tiny dim" style="margin-top:2px;">34 года · мастер на маркетплейсе · Финансы</div>
+          <div class="ba w"><span class="dot"></span><div class="small mut">Деньги утекали в никуда, к 20-му числу занимал до зарплаты. Не понимал куда.</div></div>
+          <div class="ba s"><span class="dot"></span><div class="small">Веду траты каждый день, отложил первую подушку — 40 000. Впервые в жизни есть запас.</div></div>
+          <div class="hquote">«Не миллионы. Но я наконец вижу, куда идут мои деньги, и сплю спокойно.»</div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <img src="img/hero-5.jpg" alt="Алёна">
+        <div class="hbody">
+          <div class="row between"><b style="font-size:17px;">Алёна</b><span class="chip">21 день подряд</span></div>
+          <div class="tiny dim" style="margin-top:2px;">26 лет · дизайнер · Привычки</div>
+          <div class="ba w"><span class="dot"></span><div class="small mut">Бросала всё на третий день: английский, рисование, медитации. Куча начатого.</div></div>
+          <div class="ba s"><span class="dot"></span><div class="small">21 день подряд — страница в дневник и 15 минут английского. Цепочка не рвётся.</div></div>
+          <div class="hquote">«Минимум должен быть таким мелким, чтобы стыдно было не сделать. 15 минут, не час.»</div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <img src="img/hero-6.jpg" alt="Сергей">
+        <div class="hbody">
+          <div class="row between"><b style="font-size:17px;">Сергей</b><span class="chip grn">30 дней без сигарет</span></div>
+          <div class="tiny dim" style="margin-top:2px;">45 лет · инженер · Здоровье и режим</div>
+          <div class="ba w"><span class="dot"></span><div class="small mut">Бросал курить раз десять. «Последняя» сигарета не заканчивалась. Уже не верил.</div></div>
+          <div class="ba s"><span class="dot"></span><div class="small">30 дней без единой. Сорвался раз на второй неделе — вернулся в тот же день. Дышу иначе.</div></div>
+          <div class="hquote">«Главное, что дали тут — право сорваться и не считать это провалом.»</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;text-align:center;">
+      <b style="font-family:Unbounded;font-size:16px;">А твоя история — следующая</b>
+      <p class="small mut" style="margin-top:6px;">Сделай первый шаг сегодня. Через месяц расскажешь своё «было → стало».</p>
+      <button class="btn btn-amber" style="margin-top:13px;" onclick="go('pain')">Начать путь →</button>
+    </div>
+  </section>
+
+  <!-- 12. НАСТАВНИКИ -->
+  <section class="screen full" data-s="mentors">
+    <div class="backbar" onclick="back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Назад</div>
+    <h1 style="font-size:24px;">Наставники</h1>
+    <p class="mut small" style="margin-top:7px;">Те, кто прошёл путь и готов вести. Посмотри, кто рядом, выбери своего — и пойдём.</p>
+
+    <div style="display:flex;flex-direction:column;gap:13px;margin-top:16px;">
+      <div class="mcard">
+        <img src="img/mentor-1.jpg" alt="Александр">
+        <div>
+          <div class="row between"><b style="font-size:16px;">Александр</b><span class="chip">Тело и спорт</span></div>
+          <div class="small amber" style="font-weight:700;margin-top:3px;">Падал — вставал. Так 25 лет.</div>
+          <p class="small mut" style="margin-top:6px;">Сорваться может каждый — важно вернуться на следующий день. Покажу, как держать форму, когда нет сил.</p>
+          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">25 лет дисциплины</span><span class="chip neu">300+ человек</span></div>
+        </div>
+      </div>
+
+      <div class="mcard">
+        <img src="img/mentor-2.jpg" alt="Марина">
+        <div>
+          <div class="row between"><b style="font-size:16px;">Марина</b><span class="chip">Режим и здоровье</span></div>
+          <div class="small amber" style="font-weight:700;margin-top:3px;">Сон, еда, движение — фундамент, а не подвиг.</div>
+          <p class="small mut" style="margin-top:6px;">Здоровье — это не диета на месяц, а ритм, который остаётся. Научу строить день так, чтобы тело сказало спасибо.</p>
+          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">12 лет в режиме</span><span class="chip neu">500+ человек</span></div>
+        </div>
+      </div>
+
+      <div class="mcard">
+        <img src="img/mentor-3.jpg" alt="Дмитрий">
+        <div>
+          <div class="row between"><b style="font-size:16px;">Дмитрий</b><span class="chip">Доход и дисциплина</span></div>
+          <div class="small amber" style="font-weight:700;margin-top:3px;">Деньги любят тех, кто доводит до конца.</div>
+          <p class="small mut" style="margin-top:6px;">Прошёл путь от долгов до стабильного дохода — без волшебных схем, на привычках. Покажу маленькие шаги к деньгам каждый день.</p>
+          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">15 лет в деле</span><span class="chip neu">200+ человек</span></div>
+        </div>
+      </div>
+
+      <div class="mcard">
+        <img src="img/mentor-4.jpg" alt="Анна">
+        <div>
+          <div class="row between"><b style="font-size:16px;">Анна</b><span class="chip">Привычки и характер</span></div>
+          <div class="small amber" style="font-weight:700;margin-top:3px;">Маленький шаг сегодня сильнее большого плана на потом.</div>
+          <p class="small mut" style="margin-top:6px;">Сила не в мотивации, а в системе. Собирала свою жизнь по кирпичику после выгорания. Помогу превратить намерения в привычки.</p>
+          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">10 лет в коучинге</span><span class="chip neu">250+ человек</span></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-amber" style="margin-top:16px;" onclick="toast('Заявка отправлена — наставник свяжется 👊','ok')">Хочу наставника</button>
+  </section>
+
+  <div class="toast" id="toast"><div class="ti" id="toastIc"></div><div class="small" id="toastMsg"></div></div>
 
   <nav class="nav" id="nav">
-    <a data-t="today" onclick="go('today')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Сегодня</a>
-    <a data-t="path" onclick="go('path')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.5 6.5L21 9l-5 4 1.5 7L12 16l-5.5 4L8 13 3 9l6.5-.5z"/></svg>Путь</a>
-    <a data-t="mentorchat" onclick="go('mentorchat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 11-3.5-6.6L21 4l-1 4"/></svg>Наставник</a>
-    <a data-t="team" onclick="go('team')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 20c0-2 .5-3 2-3.5"/></svg>Среда</a>
-    <a data-t="profile" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Профиль</a>
+    <a data-t="today" onclick="go('today')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Сегодня</a>
+    <a data-t="path" onclick="go('path')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .6-4.5 4 1.3 6L12 16.6 6.6 19.2l1.3-6-4.5-4 6-.6z"/></svg>Путь</a>
+    <a data-t="mentorchat" onclick="go('mentorchat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 1 1-3.5-6.6L21 4l-1 4"/></svg>Наставник</a>
+    <a data-t="team" onclick="go('team')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 20c0-2 .5-3 2-3.5"/></svg>Среда</a>
+    <a data-t="profile" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Профиль</a>
   </nav>
 </div>
 
 <script>
-var MAIN=['today','path','mentorchat','team','profile'], pts=340;
+var MAIN=['today','path','mentorchat','team','profile'], prev='splash', pts=340;
+var OVER=['heroes','mentors','checkin'];
 function go(id){
+  var cur=document.querySelector('.screen.active');
+  if(cur){var c=cur.dataset.s; if(OVER.indexOf(c)<0) prev=c;}
   document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('active',s.dataset.s===id);});
   var nav=document.getElementById('nav'),isMain=MAIN.indexOf(id)>=0;
   nav.classList.toggle('show',isMain);
@@ -383,22 +627,34 @@ function go(id){
   var sc=document.querySelector('.screen[data-s="'+id+'"]'); if(sc)sc.scrollTop=0;
   if(history.replaceState)history.replaceState(null,'','#'+id);
 }
-function single(el){el.parentElement.querySelectorAll('.pick').forEach(function(s){s.style.borderColor='var(--line)';s.style.background='var(--card)';});el.style.borderColor='var(--amber)';el.style.background='var(--amber-soft)';}
+function back(){go(prev||'splash');}
+function single(el){el.parentElement.querySelectorAll('.pick').forEach(function(s){s.style.borderColor='var(--line)';s.style.background='var(--surface)';var i=s.querySelector('.icc');if(i)i.style.background='var(--soft)';});el.style.borderColor='var(--accent)';el.style.background='linear-gradient(165deg,#fff,#FFF4EA)';}
 function multi(el){el.classList.toggle('on');}
-function addPts(n,msg){pts+=n;['ptsTop','ptsBig'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=pts;});if(msg)toast(msg);}
+function addPts(n,msg){pts+=n;['ptsTop','ptsBig'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=pts;});if(msg)toast(msg,'pts');}
 function tapHabit(el){
   var was=el.classList.contains('done'); el.classList.toggle('done');
   var done=document.querySelectorAll('#today .tasks .t.done').length, tot=4;
+  done=document.querySelectorAll('.screen[data-s="today"] .tasks .t.done').length;
   document.getElementById('doneN').textContent=done;
-  var off=188-(188*done/tot); document.getElementById('dayRing').style.transition='stroke-dashoffset .6s ease';
-  document.getElementById('dayRing').style.strokeDashoffset=off;
+  var off=188-(188*done/tot); var r=document.getElementById('dayRing');
+  r.style.transition='stroke-dashoffset .6s ease'; r.style.strokeDashoffset=off;
+  if(done>=tot){r.setAttribute('stroke','#1AA06A');}else{r.setAttribute('stroke','#F0792F');}
   var st=document.getElementById('dayState');
-  if(done>=tot){st.textContent='всё сделано — красава! 🔥';st.className='small amber';}
+  if(done>=tot){st.textContent='всё сделано — красава! 🔥';st.className='small grn';}
   else{st.textContent='отметь привычки ниже ↓';st.className='small dim';}
   if(!was){addPts(20,'+20 баллов · наставник видит 🔥');}
 }
 var tT;
-function toast(msg,av){document.getElementById('toastMsg').textContent=msg;document.getElementById('toastAv').textContent=av||'⭐';var t=document.getElementById('toast');t.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){t.classList.remove('show');},2700);}
+var ICONS={
+ pts:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .6-4.5 4 1.3 6L12 16.6 6.6 19.2l1.3-6-4.5-4 6-.6z"/></svg>',
+ share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M8 11l8-5M8 13l8 5"/></svg>',
+ ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>'
+};
+function toast(msg,ic){
+  document.getElementById('toastMsg').textContent=msg;
+  document.getElementById('toastIc').innerHTML=ICONS[ic]||ICONS.pts;
+  var t=document.getElementById('toast');t.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){t.classList.remove('show');},2700);
+}
 function seg(btn,i){btn.parentElement.querySelectorAll('button').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');document.querySelectorAll('.screen[data-s="path"] .pane').forEach(function(p){p.style.display=(p.dataset.p==i)?'block':'none';});}
 (function(){var h=(location.hash||'').replace('#','');
  if(h==='rewards'){go('path');seg(document.querySelectorAll('.seg button')[1],1);return;}
