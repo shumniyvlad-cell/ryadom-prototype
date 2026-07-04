@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FBF7F1">
-<title>Мой путь — прототип</title>
+<title>Мой путь — дисциплина и цели с наставником</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -163,12 +163,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 .nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--dim);font-size:9.5px;font-weight:700;cursor:pointer;}
 .nav a.on{color:var(--accent);}
 .nav svg{width:23px;height:23px;}
-.demoTag{position:fixed;top:12px;left:14px;font-size:11px;color:#b39a82;z-index:99;}
+.inp{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:14px;font-family:inherit;font-size:15px;background:#fff;color:var(--txt);outline:none;transition:border .15s;}
+.inp:focus{border-color:var(--accent);}
+.inp::placeholder{color:var(--dim);}
+.flabel{font-size:13px;font-weight:700;color:var(--mut);margin:14px 2px 7px;display:block;}
+.consent{display:flex;gap:11px;align-items:flex-start;margin-top:16px;cursor:pointer;}
+.consent .box{margin-top:1px;}
+.consent.on .box{background:var(--green);border-color:var(--green);}
+.consent .box svg{opacity:0;}
+.consent.on .box svg{opacity:1;}
+.pvw{position:absolute;top:50px;left:50%;transform:translateX(-50%);background:var(--soft);color:var(--accent-d);font-size:10.5px;font-weight:800;padding:4px 12px;border-radius:999px;z-index:45;white-space:nowrap;}
+.steps .st{display:flex;gap:12px;align-items:flex-start;padding:11px 0;}
+.steps .stn{width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--accent-d);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none;}
 @media(max-width:460px){body{padding:0;}.phone{width:100vw;height:100dvh;border-radius:0;border:none;box-shadow:none;}.demoTag{display:none;}}
 </style>
 </head>
 <body>
-<div class="demoTag">Мой путь · кликабельный прототип</div>
 <div class="phone">
   <div class="notch"></div>
   <div class="statusbar"><span>9:41</span><span class="r">●&nbsp;&nbsp;▮▮▮&nbsp;&nbsp;<b>76</b></span></div>
@@ -195,7 +205,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
     <div class="vrow" style="margin-top:12px;">
       <div class="vcard" onclick="go('heroes')">
         <div class="avstack"><img src="img/hero-2.jpg"><img src="img/hero-1.jpg"><img src="img/hero-6.jpg"></div>
-        <div><b>Наши герои</b><div class="tiny dim">было&nbsp;→&nbsp;стало</div></div>
+        <div><b>Наши герои</b><div class="tiny dim">примеры метода</div></div>
       </div>
       <div class="vcard" onclick="go('mentors')">
         <img src="img/mentor-1.jpg" style="width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:center 18%;">
@@ -203,7 +213,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
       </div>
     </div>
 
-    <p class="note" style="margin-top:14px;">Уже с нами 12&nbsp;400 человек · <span class="amber" style="cursor:pointer;font-weight:700;" onclick="go('today')">Войти</span></p>
+    <p class="note" style="margin-top:14px;">Идёт набор в первый поток · <span class="amber" style="cursor:pointer;font-weight:700;" onclick="go('today')">Превью приложения</span></p>
   </section>
 
   <!-- 2. ВЫБОР НАПРАВЛЕНИЯ -->
@@ -241,12 +251,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
     <p class="mut small">Сам — твой темп, твои правила. С наставником — быстрее и надёжнее: рядом человек, который уже прошёл этот путь и доведёт до результата.</p>
 
     <div class="choice" style="margin-top:20px;">
-      <div class="ch" onclick="toast('Окей, идёшь сам. Захочешь — наставник рядом 👊','ok');go('today')">
+      <div class="ch" onclick="applyMode='Сам';go('apply')">
         <div class="chic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 4-7 8-7s8 2.5 8 7"/></svg></div>
         <b>Сам</b>
         <div class="d">Свой темп,<br>свои правила</div>
       </div>
-      <div class="ch rec" onclick="go('today')">
+      <div class="ch rec" onclick="applyMode='С наставником';go('apply')">
         <span class="recbadge">советуем</span>
         <img class="chph" src="img/mentor-1.jpg" alt="Александр">
         <b>С наставником</b>
@@ -302,7 +312,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
       <div style="flex:1;"><b class="small">Истории героев</b><div class="tiny dim">было → стало · заряжает</div></div>
       <span class="amber" style="font-weight:700;">→</span>
     </div>
-    <div class="note">Прототип: данные демонстрационные.</div>
+    <div class="note">Превью приложения — так будет выглядеть твой день после старта первого потока.</div>
   </section>
 
   <!-- 6. ЧЕК-ИН -->
@@ -469,7 +479,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 
     <div class="row" style="gap:10px;margin-top:12px;">
       <div class="vcard" style="flex:1;" onclick="go('heroes')"><div class="avstack"><img src="img/hero-2.jpg"><img src="img/hero-3.jpg"></div><div><b>Наши герои</b><div class="tiny dim">было → стало</div></div></div>
-      <div class="vcard" style="flex:1;" onclick="go('mentors')"><img src="img/mentor-4.jpg" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:center 18%;"><div><b>Наставники</b><div class="tiny dim">кто рядом</div></div></div>
+      <div class="vcard" style="flex:1;" onclick="go('mentors')"><img src="img/mentor-1.jpg" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:center 18%;"><div><b>Наставники</b><div class="tiny dim">кто рядом</div></div></div>
     </div>
 
     <button class="btn btn-ghost" style="margin-top:12px;" onclick="go('splash')">↺ Пройти онбординг заново</button>
@@ -479,7 +489,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
   <section class="screen full" data-s="heroes">
     <div class="backbar" onclick="back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Назад</div>
     <h1 style="font-size:24px;">Наши герои</h1>
-    <p class="mut small" style="margin-top:7px;">Реальные люди и реальные результаты: было так — стало так. Большие победы и маленькие шаги — всё считается. Листай и заряжайся.</p>
+    <p class="mut small" style="margin-top:7px;">Было так — стало так. Большие победы и маленькие шаги — всё считается.</p>
+    <div class="card2" style="margin-top:12px;"><b class="amber small">Это примеры</b><p class="small mut" style="margin-top:4px;">Истории показывают, как работает метод. После первого потока здесь будут реальные результаты участников — возможно, твой.</p></div>
 
     <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
       <div class="hcard">
@@ -560,7 +571,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
   <section class="screen full" data-s="mentors">
     <div class="backbar" onclick="back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Назад</div>
     <h1 style="font-size:24px;">Наставники</h1>
-    <p class="mut small" style="margin-top:7px;">Те, кто прошёл путь и готов вести. Посмотри, кто рядом, выбери своего — и пойдём.</p>
+    <p class="mut small" style="margin-top:7px;">Живой человек, который прошёл путь сам и доведёт тебя. Не бот и не рассылка.</p>
 
     <div style="display:flex;flex-direction:column;gap:13px;margin-top:16px;">
       <div class="mcard">
@@ -573,38 +584,76 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
         </div>
       </div>
 
-      <div class="mcard">
-        <img src="img/mentor-2.jpg" alt="Марина">
-        <div>
-          <div class="row between"><b style="font-size:16px;">Марина</b><span class="chip">Здоровье</span></div>
-          <div class="small amber" style="font-weight:700;margin-top:3px;">Сон, еда, движение — фундамент, а не подвиг.</div>
-          <p class="small mut" style="margin-top:6px;">Здоровье — это не диета на месяц, а ритм, который остаётся. Научу строить день так, чтобы тело сказало спасибо.</p>
-          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">12 лет в режиме</span><span class="chip neu">500+ человек</span></div>
-        </div>
-      </div>
-
-      <div class="mcard">
-        <img src="img/mentor-3.jpg" alt="Дмитрий">
-        <div>
-          <div class="row between"><b style="font-size:16px;">Дмитрий</b><span class="chip">Бизнес</span></div>
-          <div class="small amber" style="font-weight:700;margin-top:3px;">Деньги любят тех, кто доводит до конца.</div>
-          <p class="small mut" style="margin-top:6px;">Прошёл путь от долгов до стабильного дохода — без волшебных схем, на привычках. Покажу маленькие шаги к деньгам каждый день.</p>
-          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">15 лет в деле</span><span class="chip neu">200+ человек</span></div>
-        </div>
-      </div>
-
-      <div class="mcard">
-        <img src="img/mentor-4.jpg" alt="Анна">
-        <div>
-          <div class="row between"><b style="font-size:16px;">Анна</b><span class="chip">Режим дня</span></div>
-          <div class="small amber" style="font-weight:700;margin-top:3px;">Маленький шаг сегодня сильнее большого плана на потом.</div>
-          <p class="small mut" style="margin-top:6px;">Сила не в мотивации, а в системе. Собирала свою жизнь по кирпичику после выгорания. Помогу превратить намерения в привычки.</p>
-          <div class="row" style="gap:7px;margin-top:9px;flex-wrap:wrap;"><span class="chip neu">10 лет в коучинге</span><span class="chip neu">250+ человек</span></div>
-        </div>
+      <div class="card2">
+        <b class="small">Команда наставников растёт</b>
+        <p class="small mut" style="margin-top:5px;">Первый поток Александр ведёт лично. Дальше подключим наставников по всем четырём направлениям — бизнес, спорт, здоровье, режим дня.</p>
       </div>
     </div>
 
-    <button class="btn btn-amber" style="margin-top:16px;" onclick="toast('Заявка отправлена — наставник свяжется 👊','ok')">Хочу наставника</button>
+    <button class="btn btn-amber" style="margin-top:16px;" onclick="applyMode='С наставником';go('apply')">Хочу наставника</button>
+  </section>
+
+
+  <!-- 13. ЗАЯВКА -->
+  <section class="screen full" data-s="apply">
+    <div class="backbar" onclick="go('mentor')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Назад</div>
+    <div class="kick">Набор в первый поток</div>
+    <h1 style="font-size:25px;margin-top:8px;">Начни свой путь</h1>
+    <p class="mut small" style="margin-top:8px;">Запускаем первый поток. С тобой будет работать Александр — наставник с 25-летним опытом дисциплины. Мест немного, берём тех, кто готов действовать.</p>
+
+    <div class="card" style="margin-top:14px;">
+      <label class="flabel" style="margin-top:0;">Имя</label>
+      <input class="inp" id="fName" type="text" placeholder="Как к тебе обращаться" autocomplete="name">
+      <label class="flabel">Телефон или Telegram</label>
+      <input class="inp" id="fContact" type="text" placeholder="+7 900 000-00-00 или @ник" autocomplete="tel">
+      <div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap;">
+        <span class="chip" id="fDir">Спорт</span>
+        <span class="chip neu" id="fMode">С наставником</span>
+      </div>
+      <div class="consent" id="fConsent" onclick="this.classList.toggle('on')">
+        <div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+        <span class="small mut">Соглашаюсь с <span class="amber" style="font-weight:700;" onclick="event.stopPropagation();go('privacy')">политикой</span> обработки персональных данных</span>
+      </div>
+    </div>
+
+    <button class="btn btn-amber" style="margin-top:14px;" onclick="sendApply()">Отправить заявку</button>
+    <p class="note">После заявки мы свяжемся с тобой и расскажем, как попасть в первый поток.</p>
+  </section>
+
+  <!-- 14. СПАСИБО -->
+  <section class="screen full" data-s="thanks">
+    <div class="spacer" style="min-height:30px;"></div>
+    <div class="icc" style="width:64px;height:64px;border-radius:50%;background:var(--green-soft);color:var(--green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;"><path d="M5 13l4 4L19 7"/></svg></div>
+    <h1 style="font-size:26px;margin-top:16px;">Заявка принята</h1>
+    <p class="mut" style="font-size:15px;line-height:1.5;margin-top:9px;">Спасибо, что сделал первый шаг. Мы свяжемся с тобой в ближайшее время — по телефону или в Telegram.</p>
+
+    <div class="card steps" style="margin-top:16px;">
+      <b class="small">Что дальше</b>
+      <div class="st" style="margin-top:6px;"><div class="stn">1</div><div class="small">Свяжемся с тобой и ответим на вопросы</div></div>
+      <div class="st"><div class="stn">2</div><div class="small">Добавим в Telegram-группу первого потока</div></div>
+      <div class="st"><div class="stn">3</div><div class="small">Поставишь первую цель вместе с Александром</div></div>
+    </div>
+
+    <div class="spacer"></div>
+    <button class="btn btn-amber" onclick="go('today')">Посмотреть, как выглядит приложение</button>
+    <button class="btn btn-ghost" style="margin-top:10px;" onclick="go('splash')">На главную</button>
+  </section>
+
+  <!-- 15. ПОЛИТИКА ПДн -->
+  <section class="screen full" data-s="privacy">
+    <div class="backbar" onclick="back()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Назад</div>
+    <h1 style="font-size:20px;">Политика обработки персональных данных</h1>
+    <div class="small mut" style="margin-top:12px;display:flex;flex-direction:column;gap:11px;">
+      <p><b style="color:var(--txt)">Кто отвечает за ваши данные.</b> Оператор персональных данных — Александр, наставник и организатор сервиса «Мой путь» (Сочи). Полные реквизиты оператора публикуются на этой странице до начала приёма заявок. Обработка ведётся в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+      <p><b style="color:var(--txt)">Какие данные мы собираем.</b> Только то, что вы сами указываете в форме заявки: имя, номер телефона или ник в Telegram, а также выбранное направление и ответы онбординга. Паспортные и платёжные данные не запрашиваются — оплат на сайте нет.</p>
+      <p><b style="color:var(--txt)">Зачем.</b> Связаться с вами по заявке и добавить вас в Telegram-группу первого потока, если решите участвовать. Для рекламных рассылок данные не используются.</p>
+      <p><b style="color:var(--txt)">Основание.</b> Ваше согласие (ст. 6 закона № 152-ФЗ). Отправляя форму, вы даёте согласие на обработку указанных данных для целей выше. Согласие добровольное.</p>
+      <p><b style="color:var(--txt)">Хранение и доступ.</b> Заявки поступают в закрытую таблицу, доступ к которой есть только у организаторов. Данные не продаются и не передаются третьим лицам.</p>
+      <p><b style="color:var(--txt)">Срок.</b> Данные обрабатываются до достижения цели — набора и сопровождения потока — либо до отзыва вашего согласия. После этого удаляются.</p>
+      <p><b style="color:var(--txt)">Ваши права.</b> В любой момент можно узнать, какие данные о вас есть, потребовать исправить или удалить их, а также отозвать согласие.</p>
+      <p><b style="color:var(--txt)">Как отозвать согласие.</b> Напишите организаторам в Telegram или сообщите по телефону — заявления в свободной форме достаточно. Обработку прекратим и данные удалим не позднее 30 дней (ст. 21 закона № 152-ФЗ).</p>
+      <p><b style="color:var(--txt)">Действие политики.</b> С 4 июля 2026 года.</p>
+    </div>
   </section>
 
   <div class="toast" id="toast"><div class="ti" id="toastIc"></div><div class="small" id="toastMsg"></div></div>
@@ -620,7 +669,26 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 
 <script>
 var MAIN=['today','path','mentorchat','team','profile'], prev='splash', pts=340;
-var OVER=['heroes','mentors','checkin'];
+var OVER=['heroes','mentors','checkin','apply','thanks','privacy'];
+var applyMode='С наставником', CHOSEN='Спорт';
+// === НАСТРОЙКА ФОРМЫ ЗАЯВОК (Google Forms -> Google Sheets) ===
+var FORM={
+  action:'', // https://docs.google.com/forms/d/e/<FORM_ID>/formResponse
+  f:{name:'',contact:'',dir:'',mode:''} // entry.XXXXXXX для каждого поля
+};
+function sendApply(){
+  var n=document.getElementById('fName').value.trim();
+  var c=document.getElementById('fContact').value.trim();
+  if(!n||!c){toast('Заполни имя и контакт','ok');return;}
+  if(!document.getElementById('fConsent').classList.contains('on')){toast('Отметь согласие с политикой','ok');return;}
+  if(FORM.action){
+    var d=new FormData();
+    d.append(FORM.f.name,n);d.append(FORM.f.contact,c);
+    d.append(FORM.f.dir,CHOSEN);d.append(FORM.f.mode,applyMode);
+    fetch(FORM.action,{method:'POST',mode:'no-cors',body:d}).catch(function(){});
+  }
+  go('thanks');
+}
 function go(id){
   var cur=document.querySelector('.screen.active');
   if(cur){var c=cur.dataset.s; if(OVER.indexOf(c)<0) prev=c;}
@@ -629,6 +697,7 @@ function go(id){
   nav.classList.toggle('show',isMain);
   document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('on',a.dataset.t===id);});
   var sc=document.querySelector('.screen[data-s="'+id+'"]'); if(sc)sc.scrollTop=0;
+  if(id==='apply'){var fm=document.getElementById('fMode');if(fm)fm.textContent=applyMode;var fd=document.getElementById('fDir');if(fd)fd.textContent=CHOSEN;}
   if(history.replaceState)history.replaceState(null,'','#'+id);
 }
 function back(){go(prev||'splash');}
@@ -650,6 +719,8 @@ function renderHabits(cat){
 function pickCat(el,cat){
   el.parentElement.querySelectorAll('.pick').forEach(function(s){s.style.borderColor='var(--line)';s.style.background='var(--surface)';});
   el.style.borderColor='var(--accent)';el.style.background='linear-gradient(165deg,#fff,#FFF4EA)';
+  CHOSEN=(HABITS[cat]||HABITS.sport).name;
+  var fd=document.getElementById('fDir'); if(fd)fd.textContent=CHOSEN;
   setTimeout(function(){renderHabits(cat);go('minimum');},280);
 }
 function addCustom(){
