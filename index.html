@@ -109,6 +109,10 @@ h2{font-family:Unbounded;font-size:20px;font-weight:600;letter-spacing:-.2px;}
 .op:active{background:var(--surface2);color:var(--accent);}
 .op svg{width:15px;height:15px;}
 .op.dis{opacity:.25;pointer-events:none;}
+.op.grab{cursor:grab;touch-action:none;}
+.op.grab:active{cursor:grabbing;}
+#habitList .t{transition:transform .18s ease;}
+#habitList .t.drag{transition:none;position:relative;z-index:30;background:#fff;box-shadow:0 12px 28px rgba(120,90,60,.28);border-radius:12px;}
 .t.add .plus{width:24px;height:24px;border-radius:8px;border:2px dashed var(--accent);flex:none;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;}
 .vrow{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
 .vcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:9px;cursor:pointer;box-shadow:var(--sh-card);transition:transform .1s;}
@@ -810,8 +814,7 @@ var HABITS={
 };
 var CHECK='<div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>';
 var OPS={
- up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
- down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
+ grip:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.7"/><circle cx="15" cy="6" r="1.7"/><circle cx="9" cy="12" r="1.7"/><circle cx="15" cy="12" r="1.7"/><circle cx="9" cy="18" r="1.7"/><circle cx="15" cy="18" r="1.7"/></svg>',
  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>',
  del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
 };
@@ -835,10 +838,9 @@ function drawDraft(){
     h+='<div class="t'+(d.on?' on':'')+'">'
       +'<div class="lblwrap" onclick="togH('+i+')">'+CHECK+'<span class="lbl">'+esc(d.txt)+'</span></div>'
       +'<div class="ops">'
-      +'<span class="op'+(i===0?' dis':'')+'" onclick="moveH('+i+',-1)">'+OPS.up+'</span>'
-      +'<span class="op'+(i===draft.length-1?' dis':'')+'" onclick="moveH('+i+',1)">'+OPS.down+'</span>'
       +'<span class="op" onclick="editH('+i+')">'+OPS.edit+'</span>'
       +'<span class="op" onclick="delH('+i+')">'+OPS.del+'</span>'
+      +'<span class="op grab" onpointerdown="dragStart(event,'+i+')">'+OPS.grip+'</span>'
       +'</div></div>';
   });
   h+='<div class="t add" onclick="addCustom()"><div class="plus">+</div><span class="lbl">Добавить своё действие</span></div>';
@@ -851,10 +853,40 @@ function renderHabits(cat,keepSaved){
   drawDraft();
 }
 function togH(i){draft[i].on=!draft[i].on;drawDraft();}
-function moveH(i,dir){
-  var j=i+dir; if(j<0||j>=draft.length)return;
-  var tmp=draft[i];draft[i]=draft[j];draft[j]=tmp;
-  persistPool();drawDraft();
+function dragStart(ev,i){
+  ev.preventDefault();
+  var list=document.getElementById('habitList');
+  var rows=[].slice.call(list.querySelectorAll('.t')).filter(function(r){return !r.classList.contains('add');});
+  var el=rows[i]; if(!el)return;
+  var rowH=el.offsetHeight, startY=ev.clientY, cur=i;
+  el.classList.add('drag'); vibrate(8);
+  function mv(e){
+    var dy=e.clientY-startY;
+    el.style.transform='translateY('+dy+'px) scale(1.02)';
+    var target=Math.min(draft.length-1,Math.max(0,i+Math.round(dy/rowH)));
+    if(target!==cur){
+      cur=target; vibrate(5);
+      rows.forEach(function(r,k){
+        if(k===i)return;
+        var off=0;
+        if(i<cur && k>i && k<=cur) off=-rowH;
+        else if(i>cur && k<i && k>=cur) off=rowH;
+        r.style.transform=off?'translateY('+off+'px)':'';
+      });
+    }
+    e.preventDefault();
+  }
+  function up(){
+    document.removeEventListener('pointermove',mv);
+    document.removeEventListener('pointerup',up);
+    document.removeEventListener('pointercancel',up);
+    el.classList.remove('drag');
+    if(cur!==i){var it=draft.splice(i,1)[0];draft.splice(cur,0,it);persistPool();vibrate(12);}
+    drawDraft();
+  }
+  document.addEventListener('pointermove',mv,{passive:false});
+  document.addEventListener('pointerup',up);
+  document.addEventListener('pointercancel',up);
 }
 function editH(i){
   var n=prompt('Название действия:',draft[i].txt);
